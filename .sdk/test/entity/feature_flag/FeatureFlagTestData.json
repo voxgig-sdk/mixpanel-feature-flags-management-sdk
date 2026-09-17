@@ -1,0 +1,3445 @@
+{
+  "existing": {
+    "feature_flag": {
+      "FEATURE_FLAG00": {
+        "context": "s96",
+        "data_group_id": "DATA_GROUP01",
+        "description": "s98",
+        "experiment_id": "EXPERIMENT01",
+        "hash_salt": "s9a",
+        "id": "FEATURE_FLAG00",
+        "is_experiment_active": true,
+        "key": "s9d",
+        "name": "s9e",
+        "reset_hash_salt": "s9f",
+        "ruleset": {},
+        "serving_method": "sa1",
+        "status": "sa2",
+        "tags": [],
+        "workspace_id": "WORKSPACE01",
+        "project_id": "PROJECT01"
+      },
+      "FEATURE_FLAG01": {
+        "context": "s12c",
+        "data_group_id": "DATA_GROUP01",
+        "description": "s12e",
+        "experiment_id": "EXPERIMENT01",
+        "hash_salt": "s130",
+        "id": "FEATURE_FLAG01",
+        "is_experiment_active": true,
+        "key": "s133",
+        "name": "s134",
+        "reset_hash_salt": "s135",
+        "ruleset": {},
+        "serving_method": "s137",
+        "status": "s138",
+        "tags": [],
+        "workspace_id": "WORKSPACE01",
+        "project_id": "PROJECT01"
+      },
+      "FEATURE_FLAG02": {
+        "context": "s1c2",
+        "data_group_id": "DATA_GROUP01",
+        "description": "s1c4",
+        "experiment_id": "EXPERIMENT01",
+        "hash_salt": "s1c6",
+        "id": "FEATURE_FLAG02",
+        "is_experiment_active": true,
+        "key": "s1c9",
+        "name": "s1ca",
+        "reset_hash_salt": "s1cb",
+        "ruleset": {},
+        "serving_method": "s1cd",
+        "status": "s1ce",
+        "tags": [],
+        "workspace_id": "WORKSPACE01",
+        "project_id": "PROJECT01"
+      }
+    }
+  },
+  "new": {
+    "feature_flag": {
+      "feature_flag_ref01": {
+        "context": "s258",
+        "data_group_id": "DATA_GROUP01",
+        "description": "s25a",
+        "experiment_id": "EXPERIMENT01",
+        "hash_salt": "s25c",
+        "is_experiment_active": true,
+        "key": "s25f",
+        "name": "s260",
+        "reset_hash_salt": "s261",
+        "ruleset": {},
+        "serving_method": "s263",
+        "status": "s264",
+        "tags": [],
+        "workspace_id": "WORKSPACE01"
+      }
+    }
+  },
+  "requests": {
+    "POST /projects/{project_id}/workspaces/{workspace_id}/feature-flags": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "create-feature-flag",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {
+                  "context": {
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "title": "",
+                    "type": "string"
+                  },
+                  "data_group_id": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "description": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "experiment_id": {
+                    "anyOf": [
+                      {
+                        "format": "uuid4",
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "hash_salt": {
+                    "anyOf": [
+                      {
+                        "maxLength": 32,
+                        "minLength": 32,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "is_experiment_active": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "key": {
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "title": "",
+                    "type": "string"
+                  },
+                  "name": {
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "title": "",
+                    "type": "string"
+                  },
+                  "reset_hash_salt": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "ruleset": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "rollout": {
+                        "items": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "cohort_definition": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": true,
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "cohort_hash": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "name": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "rollout_percentage": {
+                              "maximum": 1,
+                              "minimum": 0,
+                              "title": "",
+                              "type": "number"
+                            },
+                            "runtime_evaluation_definition": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": true,
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "runtime_evaluation_rule": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": true,
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "runtime_event_rule": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "description": "Configuration for first-time event targeting in rollout groups.",
+                                  "properties": {
+                                    "duration": {
+                                      "anyOf": [
+                                        {
+                                          "enum": [
+                                            "end_of_session",
+                                            "indefinitely"
+                                          ],
+                                          "title": "FirstTimeEventDuration",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ],
+                                      "default": null,
+                                      "title": ""
+                                    },
+                                    "event_name": {
+                                      "title": "",
+                                      "type": "string"
+                                    },
+                                    "property_filters": {
+                                      "anyOf": [
+                                        {
+                                          "additionalProperties": true,
+                                          "type": "object"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ],
+                                      "default": null,
+                                      "title": ""
+                                    },
+                                    "time_window": {
+                                      "enum": [
+                                        "while_flag_enabled"
+                                      ],
+                                      "title": "RuntimeEventTimeWindow",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "event_name",
+                                    "time_window"
+                                  ],
+                                  "title": "RuntimeEventRule",
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "variant_override": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "description": "A pointer to the variant defined under ruleset.variants[<key>]",
+                                  "properties": {
+                                    "key": {
+                                      "title": "",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "key"
+                                  ],
+                                  "title": "ManagementVariantOverride",
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "variant_splits": {
+                              "additionalProperties": {
+                                "type": "number"
+                              },
+                              "title": "",
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "rollout_percentage",
+                            "variant_splits"
+                          ],
+                          "title": "ManagementRollout",
+                          "type": "object"
+                        },
+                        "title": "",
+                        "type": "array"
+                      },
+                      "test": {
+                        "anyOf": [
+                          {
+                            "additionalProperties": {
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "type": "object"
+                            },
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null,
+                        "title": ""
+                      },
+                      "variants": {
+                        "items": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "description": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "is_control": {
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "is_sticky": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "key": {
+                              "title": "",
+                              "type": "string"
+                            },
+                            "split": {
+                              "maximum": 1,
+                              "minimum": 0,
+                              "title": "",
+                              "type": "number"
+                            },
+                            "value": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "maxLength": 32768,
+                                  "type": "string"
+                                },
+                                {}
+                              ],
+                              "title": ""
+                            }
+                          },
+                          "required": [
+                            "key",
+                            "value",
+                            "is_control",
+                            "split"
+                          ],
+                          "title": "ManagementVariant",
+                          "type": "object"
+                        },
+                        "maxItems": 11,
+                        "title": "",
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "variants",
+                      "rollout"
+                    ],
+                    "title": "ManagementRuleSet",
+                    "type": "object"
+                  },
+                  "serving_method": {
+                    "enum": [
+                      "client",
+                      "server",
+                      "remote_or_local",
+                      "remote_only"
+                    ],
+                    "title": "ServingMethod",
+                    "type": "string"
+                  },
+                  "status": {
+                    "default": "disabled",
+                    "enum": [
+                      "enabled",
+                      "disabled",
+                      "archived"
+                    ],
+                    "title": "FeatureFlagStatus",
+                    "type": "string"
+                  },
+                  "tags": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "title": "",
+                    "type": "array"
+                  },
+                  "workspace_id": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  }
+                },
+                "required": [
+                  "name",
+                  "key",
+                  "tags",
+                  "context",
+                  "serving_method",
+                  "ruleset"
+                ],
+                "title": "FeatureFlagApiPayload",
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "results": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "allow_staff_override": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_pin": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_share": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_update_basic": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_view": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "content_environments_id": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "content_type": {
+                              "const": "feature-flags",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "context": {
+                              "maxLength": 255,
+                              "minLength": 1,
+                              "title": "",
+                              "type": "string"
+                            },
+                            "created": {
+                              "format": "date-time",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "creator_email": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "creator_id": {
+                              "anyOf": [
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "creator_name": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "data_group_id": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "deleted": {
+                              "anyOf": [
+                                {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "description": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "enabled_at": {
+                              "anyOf": [
+                                {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "experiment_id": {
+                              "anyOf": [
+                                {
+                                  "format": "uuid4",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "hash_salt": {
+                              "anyOf": [
+                                {
+                                  "maxLength": 32,
+                                  "minLength": 32,
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "id": {
+                              "format": "uuid4",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "is_experiment_active": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "is_favorited": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "is_shared_with_project": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "is_superadmin": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "key": {
+                              "maxLength": 255,
+                              "minLength": 1,
+                              "title": "",
+                              "type": "string"
+                            },
+                            "last_modified_by_email": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "last_modified_by_id": {
+                              "anyOf": [
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "last_modified_by_name": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "modified": {
+                              "format": "date-time",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "name": {
+                              "maxLength": 255,
+                              "minLength": 1,
+                              "title": "",
+                              "type": "string"
+                            },
+                            "pinned_date": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "project_id": {
+                              "title": "",
+                              "type": "integer"
+                            },
+                            "project_name": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "reset_hash_salt": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "ruleset": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "rollout": {
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "cohort_definition": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": true,
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "title": ""
+                                      },
+                                      "cohort_hash": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "name": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "rollout_percentage": {
+                                        "maximum": 1,
+                                        "minimum": 0,
+                                        "title": "",
+                                        "type": "number"
+                                      },
+                                      "runtime_evaluation_definition": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": true,
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "title": ""
+                                      },
+                                      "runtime_evaluation_rule": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": true,
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "runtime_event_rule": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": false,
+                                            "description": "Configuration for first-time event targeting in rollout groups.",
+                                            "properties": {
+                                              "duration": {
+                                                "anyOf": [
+                                                  {
+                                                    "enum": [
+                                                      "end_of_session",
+                                                      "indefinitely"
+                                                    ],
+                                                    "title": "FirstTimeEventDuration",
+                                                    "type": "string"
+                                                  },
+                                                  {
+                                                    "type": "null"
+                                                  }
+                                                ],
+                                                "default": null,
+                                                "title": ""
+                                              },
+                                              "event_name": {
+                                                "title": "",
+                                                "type": "string"
+                                              },
+                                              "property_filters": {
+                                                "anyOf": [
+                                                  {
+                                                    "additionalProperties": true,
+                                                    "type": "object"
+                                                  },
+                                                  {
+                                                    "type": "null"
+                                                  }
+                                                ],
+                                                "default": null,
+                                                "title": ""
+                                              },
+                                              "time_window": {
+                                                "enum": [
+                                                  "while_flag_enabled"
+                                                ],
+                                                "title": "RuntimeEventTimeWindow",
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "event_name",
+                                              "time_window"
+                                            ],
+                                            "title": "RuntimeEventRule",
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "variant_override": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": false,
+                                            "description": "A pointer to the variant defined under ruleset.variants[<key>]",
+                                            "properties": {
+                                              "key": {
+                                                "title": "",
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "key"
+                                            ],
+                                            "title": "ManagementVariantOverride",
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "variant_splits": {
+                                        "additionalProperties": {
+                                          "type": "number"
+                                        },
+                                        "title": "",
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "rollout_percentage",
+                                      "variant_splits"
+                                    ],
+                                    "title": "ManagementRollout",
+                                    "type": "object"
+                                  },
+                                  "title": "",
+                                  "type": "array"
+                                },
+                                "test": {
+                                  "anyOf": [
+                                    {
+                                      "additionalProperties": {
+                                        "additionalProperties": {
+                                          "type": "string"
+                                        },
+                                        "type": "object"
+                                      },
+                                      "type": "object"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null,
+                                  "title": ""
+                                },
+                                "variants": {
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "description": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "is_control": {
+                                        "title": "",
+                                        "type": "boolean"
+                                      },
+                                      "is_sticky": {
+                                        "default": false,
+                                        "title": "",
+                                        "type": "boolean"
+                                      },
+                                      "key": {
+                                        "title": "",
+                                        "type": "string"
+                                      },
+                                      "split": {
+                                        "maximum": 1,
+                                        "minimum": 0,
+                                        "title": "",
+                                        "type": "number"
+                                      },
+                                      "value": {
+                                        "anyOf": [
+                                          {
+                                            "type": "boolean"
+                                          },
+                                          {
+                                            "maxLength": 32768,
+                                            "type": "string"
+                                          },
+                                          {}
+                                        ],
+                                        "title": ""
+                                      }
+                                    },
+                                    "required": [
+                                      "key",
+                                      "value",
+                                      "is_control",
+                                      "split"
+                                    ],
+                                    "title": "ManagementVariant",
+                                    "type": "object"
+                                  },
+                                  "maxItems": 11,
+                                  "title": "",
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "variants",
+                                "rollout"
+                              ],
+                              "title": "ManagementRuleSet",
+                              "type": "object"
+                            },
+                            "serving_method": {
+                              "enum": [
+                                "client",
+                                "server",
+                                "remote_or_local",
+                                "remote_only"
+                              ],
+                              "title": "ServingMethod",
+                              "type": "string"
+                            },
+                            "status": {
+                              "default": "disabled",
+                              "enum": [
+                                "enabled",
+                                "disabled",
+                                "archived"
+                              ],
+                              "title": "FeatureFlagStatus",
+                              "type": "string"
+                            },
+                            "tags": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "",
+                              "type": "array"
+                            },
+                            "workspace_id": {
+                              "anyOf": [
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "key",
+                            "tags",
+                            "context",
+                            "serving_method",
+                            "ruleset",
+                            "id",
+                            "project_id",
+                            "content_type",
+                            "created",
+                            "creator_id",
+                            "creator_name",
+                            "creator_email",
+                            "modified"
+                          ],
+                          "title": "FeatureFlagApiResponse",
+                          "type": "object"
+                        },
+                        "status": {
+                          "const": "ok",
+                          "title": "",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "results"
+                      ],
+                      "title": "SingleFeatureFlagApiResponse",
+                      "type": "object"
+                    },
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "error": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "object"
+                            }
+                          ],
+                          "title": ""
+                        },
+                        "status": {
+                          "const": "error",
+                          "title": "",
+                          "type": "string"
+                        },
+                        "type": {
+                          "title": "",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "type",
+                        "error"
+                      ],
+                      "title": "ManagementApiErrorResponse",
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Details about the error that occurred",
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Details about the error that occurred",
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "ServiceAccount": []
+          }
+        ],
+        "securitySchemes": {
+          "OAuthToken": {
+            "description": "OAuth Token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "ProjectSecret": {
+            "description": "Project Secret",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "ServiceAccount": {
+            "description": "Service Account",
+            "scheme": "basic",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "GET /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "get-feature-flag",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "flag_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "results": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "allow_staff_override": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_pin": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_share": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_update_basic": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_view": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "content_environments_id": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "content_type": {
+                              "const": "feature-flags",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "context": {
+                              "maxLength": 255,
+                              "minLength": 1,
+                              "title": "",
+                              "type": "string"
+                            },
+                            "created": {
+                              "format": "date-time",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "creator_email": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "creator_id": {
+                              "anyOf": [
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "creator_name": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "data_group_id": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "deleted": {
+                              "anyOf": [
+                                {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "description": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "enabled_at": {
+                              "anyOf": [
+                                {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "experiment_id": {
+                              "anyOf": [
+                                {
+                                  "format": "uuid4",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "hash_salt": {
+                              "anyOf": [
+                                {
+                                  "maxLength": 32,
+                                  "minLength": 32,
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "id": {
+                              "format": "uuid4",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "is_experiment_active": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "is_favorited": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "is_shared_with_project": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "is_superadmin": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "key": {
+                              "maxLength": 255,
+                              "minLength": 1,
+                              "title": "",
+                              "type": "string"
+                            },
+                            "last_modified_by_email": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "last_modified_by_id": {
+                              "anyOf": [
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "last_modified_by_name": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "modified": {
+                              "format": "date-time",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "name": {
+                              "maxLength": 255,
+                              "minLength": 1,
+                              "title": "",
+                              "type": "string"
+                            },
+                            "pinned_date": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "project_id": {
+                              "title": "",
+                              "type": "integer"
+                            },
+                            "project_name": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "reset_hash_salt": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "ruleset": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "rollout": {
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "cohort_definition": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": true,
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "title": ""
+                                      },
+                                      "cohort_hash": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "name": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "rollout_percentage": {
+                                        "maximum": 1,
+                                        "minimum": 0,
+                                        "title": "",
+                                        "type": "number"
+                                      },
+                                      "runtime_evaluation_definition": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": true,
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "title": ""
+                                      },
+                                      "runtime_evaluation_rule": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": true,
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "runtime_event_rule": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": false,
+                                            "description": "Configuration for first-time event targeting in rollout groups.",
+                                            "properties": {
+                                              "duration": {
+                                                "anyOf": [
+                                                  {
+                                                    "enum": [
+                                                      "end_of_session",
+                                                      "indefinitely"
+                                                    ],
+                                                    "title": "FirstTimeEventDuration",
+                                                    "type": "string"
+                                                  },
+                                                  {
+                                                    "type": "null"
+                                                  }
+                                                ],
+                                                "default": null,
+                                                "title": ""
+                                              },
+                                              "event_name": {
+                                                "title": "",
+                                                "type": "string"
+                                              },
+                                              "property_filters": {
+                                                "anyOf": [
+                                                  {
+                                                    "additionalProperties": true,
+                                                    "type": "object"
+                                                  },
+                                                  {
+                                                    "type": "null"
+                                                  }
+                                                ],
+                                                "default": null,
+                                                "title": ""
+                                              },
+                                              "time_window": {
+                                                "enum": [
+                                                  "while_flag_enabled"
+                                                ],
+                                                "title": "RuntimeEventTimeWindow",
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "event_name",
+                                              "time_window"
+                                            ],
+                                            "title": "RuntimeEventRule",
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "variant_override": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": false,
+                                            "description": "A pointer to the variant defined under ruleset.variants[<key>]",
+                                            "properties": {
+                                              "key": {
+                                                "title": "",
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "key"
+                                            ],
+                                            "title": "ManagementVariantOverride",
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "variant_splits": {
+                                        "additionalProperties": {
+                                          "type": "number"
+                                        },
+                                        "title": "",
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "rollout_percentage",
+                                      "variant_splits"
+                                    ],
+                                    "title": "ManagementRollout",
+                                    "type": "object"
+                                  },
+                                  "title": "",
+                                  "type": "array"
+                                },
+                                "test": {
+                                  "anyOf": [
+                                    {
+                                      "additionalProperties": {
+                                        "additionalProperties": {
+                                          "type": "string"
+                                        },
+                                        "type": "object"
+                                      },
+                                      "type": "object"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null,
+                                  "title": ""
+                                },
+                                "variants": {
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "description": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "is_control": {
+                                        "title": "",
+                                        "type": "boolean"
+                                      },
+                                      "is_sticky": {
+                                        "default": false,
+                                        "title": "",
+                                        "type": "boolean"
+                                      },
+                                      "key": {
+                                        "title": "",
+                                        "type": "string"
+                                      },
+                                      "split": {
+                                        "maximum": 1,
+                                        "minimum": 0,
+                                        "title": "",
+                                        "type": "number"
+                                      },
+                                      "value": {
+                                        "anyOf": [
+                                          {
+                                            "type": "boolean"
+                                          },
+                                          {
+                                            "maxLength": 32768,
+                                            "type": "string"
+                                          },
+                                          {}
+                                        ],
+                                        "title": ""
+                                      }
+                                    },
+                                    "required": [
+                                      "key",
+                                      "value",
+                                      "is_control",
+                                      "split"
+                                    ],
+                                    "title": "ManagementVariant",
+                                    "type": "object"
+                                  },
+                                  "maxItems": 11,
+                                  "title": "",
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "variants",
+                                "rollout"
+                              ],
+                              "title": "ManagementRuleSet",
+                              "type": "object"
+                            },
+                            "serving_method": {
+                              "enum": [
+                                "client",
+                                "server",
+                                "remote_or_local",
+                                "remote_only"
+                              ],
+                              "title": "ServingMethod",
+                              "type": "string"
+                            },
+                            "status": {
+                              "default": "disabled",
+                              "enum": [
+                                "enabled",
+                                "disabled",
+                                "archived"
+                              ],
+                              "title": "FeatureFlagStatus",
+                              "type": "string"
+                            },
+                            "tags": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "",
+                              "type": "array"
+                            },
+                            "workspace_id": {
+                              "anyOf": [
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "key",
+                            "tags",
+                            "context",
+                            "serving_method",
+                            "ruleset",
+                            "id",
+                            "project_id",
+                            "content_type",
+                            "created",
+                            "creator_id",
+                            "creator_name",
+                            "creator_email",
+                            "modified"
+                          ],
+                          "title": "FeatureFlagApiResponse",
+                          "type": "object"
+                        },
+                        "status": {
+                          "const": "ok",
+                          "title": "",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "results"
+                      ],
+                      "title": "SingleFeatureFlagApiResponse",
+                      "type": "object"
+                    },
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "error": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "object"
+                            }
+                          ],
+                          "title": ""
+                        },
+                        "status": {
+                          "const": "error",
+                          "title": "",
+                          "type": "string"
+                        },
+                        "type": {
+                          "title": "",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "type",
+                        "error"
+                      ],
+                      "title": "ManagementApiErrorResponse",
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Details about the error that occurred",
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Details about the error that occurred",
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "ServiceAccount": []
+          }
+        ],
+        "securitySchemes": {
+          "OAuthToken": {
+            "description": "OAuth Token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "ProjectSecret": {
+            "description": "Project Secret",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "ServiceAccount": {
+            "description": "Service Account",
+            "scheme": "basic",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "DELETE /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "delete-feature-flag",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "flag_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "results": {
+                          "additionalProperties": true,
+                          "title": "",
+                          "type": "object"
+                        },
+                        "status": {
+                          "const": "ok",
+                          "title": "",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "results"
+                      ],
+                      "title": "DeleteFeatureFlagApiResponse",
+                      "type": "object"
+                    },
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "error": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "object"
+                            }
+                          ],
+                          "title": ""
+                        },
+                        "status": {
+                          "const": "error",
+                          "title": "",
+                          "type": "string"
+                        },
+                        "type": {
+                          "title": "",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "type",
+                        "error"
+                      ],
+                      "title": "ManagementApiErrorResponse",
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Details about the error that occurred",
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Details about the error that occurred",
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "ServiceAccount": []
+          }
+        ],
+        "securitySchemes": {
+          "OAuthToken": {
+            "description": "OAuth Token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "ProjectSecret": {
+            "description": "Project Secret",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "ServiceAccount": {
+            "description": "Service Account",
+            "scheme": "basic",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    },
+    "PUT /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "update-feature-flag",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "workspace_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "flag_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {
+                  "context": {
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "title": "",
+                    "type": "string"
+                  },
+                  "data_group_id": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "description": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "experiment_id": {
+                    "anyOf": [
+                      {
+                        "format": "uuid4",
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "hash_salt": {
+                    "anyOf": [
+                      {
+                        "maxLength": 32,
+                        "minLength": 32,
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "is_experiment_active": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "key": {
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "title": "",
+                    "type": "string"
+                  },
+                  "name": {
+                    "maxLength": 255,
+                    "minLength": 1,
+                    "title": "",
+                    "type": "string"
+                  },
+                  "reset_hash_salt": {
+                    "anyOf": [
+                      {
+                        "type": "boolean"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  },
+                  "ruleset": {
+                    "additionalProperties": false,
+                    "properties": {
+                      "rollout": {
+                        "items": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "cohort_definition": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": true,
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "cohort_hash": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "name": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "rollout_percentage": {
+                              "maximum": 1,
+                              "minimum": 0,
+                              "title": "",
+                              "type": "number"
+                            },
+                            "runtime_evaluation_definition": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": true,
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "runtime_evaluation_rule": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": true,
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "runtime_event_rule": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "description": "Configuration for first-time event targeting in rollout groups.",
+                                  "properties": {
+                                    "duration": {
+                                      "anyOf": [
+                                        {
+                                          "enum": [
+                                            "end_of_session",
+                                            "indefinitely"
+                                          ],
+                                          "title": "FirstTimeEventDuration",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ],
+                                      "default": null,
+                                      "title": ""
+                                    },
+                                    "event_name": {
+                                      "title": "",
+                                      "type": "string"
+                                    },
+                                    "property_filters": {
+                                      "anyOf": [
+                                        {
+                                          "additionalProperties": true,
+                                          "type": "object"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ],
+                                      "default": null,
+                                      "title": ""
+                                    },
+                                    "time_window": {
+                                      "enum": [
+                                        "while_flag_enabled"
+                                      ],
+                                      "title": "RuntimeEventTimeWindow",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "event_name",
+                                    "time_window"
+                                  ],
+                                  "title": "RuntimeEventRule",
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "variant_override": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "description": "A pointer to the variant defined under ruleset.variants[<key>]",
+                                  "properties": {
+                                    "key": {
+                                      "title": "",
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "key"
+                                  ],
+                                  "title": "ManagementVariantOverride",
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "variant_splits": {
+                              "additionalProperties": {
+                                "type": "number"
+                              },
+                              "title": "",
+                              "type": "object"
+                            }
+                          },
+                          "required": [
+                            "rollout_percentage",
+                            "variant_splits"
+                          ],
+                          "title": "ManagementRollout",
+                          "type": "object"
+                        },
+                        "title": "",
+                        "type": "array"
+                      },
+                      "test": {
+                        "anyOf": [
+                          {
+                            "additionalProperties": {
+                              "additionalProperties": {
+                                "type": "string"
+                              },
+                              "type": "object"
+                            },
+                            "type": "object"
+                          },
+                          {
+                            "type": "null"
+                          }
+                        ],
+                        "default": null,
+                        "title": ""
+                      },
+                      "variants": {
+                        "items": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "description": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "is_control": {
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "is_sticky": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "key": {
+                              "title": "",
+                              "type": "string"
+                            },
+                            "split": {
+                              "maximum": 1,
+                              "minimum": 0,
+                              "title": "",
+                              "type": "number"
+                            },
+                            "value": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "maxLength": 32768,
+                                  "type": "string"
+                                },
+                                {}
+                              ],
+                              "title": ""
+                            }
+                          },
+                          "required": [
+                            "key",
+                            "value",
+                            "is_control",
+                            "split"
+                          ],
+                          "title": "ManagementVariant",
+                          "type": "object"
+                        },
+                        "maxItems": 11,
+                        "title": "",
+                        "type": "array"
+                      }
+                    },
+                    "required": [
+                      "variants",
+                      "rollout"
+                    ],
+                    "title": "ManagementRuleSet",
+                    "type": "object"
+                  },
+                  "serving_method": {
+                    "enum": [
+                      "client",
+                      "server",
+                      "remote_or_local",
+                      "remote_only"
+                    ],
+                    "title": "ServingMethod",
+                    "type": "string"
+                  },
+                  "status": {
+                    "default": "disabled",
+                    "enum": [
+                      "enabled",
+                      "disabled",
+                      "archived"
+                    ],
+                    "title": "FeatureFlagStatus",
+                    "type": "string"
+                  },
+                  "tags": {
+                    "items": {
+                      "type": "string"
+                    },
+                    "title": "",
+                    "type": "array"
+                  },
+                  "workspace_id": {
+                    "anyOf": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ],
+                    "default": null,
+                    "title": ""
+                  }
+                },
+                "required": [
+                  "name",
+                  "key",
+                  "tags",
+                  "context",
+                  "serving_method",
+                  "ruleset"
+                ],
+                "title": "FeatureFlagApiPayload",
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "results": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "allow_staff_override": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_pin": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_share": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_update_basic": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "can_view": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "content_environments_id": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "content_type": {
+                              "const": "feature-flags",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "context": {
+                              "maxLength": 255,
+                              "minLength": 1,
+                              "title": "",
+                              "type": "string"
+                            },
+                            "created": {
+                              "format": "date-time",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "creator_email": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "creator_id": {
+                              "anyOf": [
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "creator_name": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "title": ""
+                            },
+                            "data_group_id": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "deleted": {
+                              "anyOf": [
+                                {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "description": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "enabled_at": {
+                              "anyOf": [
+                                {
+                                  "format": "date-time",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "experiment_id": {
+                              "anyOf": [
+                                {
+                                  "format": "uuid4",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "hash_salt": {
+                              "anyOf": [
+                                {
+                                  "maxLength": 32,
+                                  "minLength": 32,
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "id": {
+                              "format": "uuid4",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "is_experiment_active": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "is_favorited": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "is_shared_with_project": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "is_superadmin": {
+                              "default": false,
+                              "title": "",
+                              "type": "boolean"
+                            },
+                            "key": {
+                              "maxLength": 255,
+                              "minLength": 1,
+                              "title": "",
+                              "type": "string"
+                            },
+                            "last_modified_by_email": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "last_modified_by_id": {
+                              "anyOf": [
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "last_modified_by_name": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "modified": {
+                              "format": "date-time",
+                              "title": "",
+                              "type": "string"
+                            },
+                            "name": {
+                              "maxLength": 255,
+                              "minLength": 1,
+                              "title": "",
+                              "type": "string"
+                            },
+                            "pinned_date": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "project_id": {
+                              "title": "",
+                              "type": "integer"
+                            },
+                            "project_name": {
+                              "anyOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "reset_hash_salt": {
+                              "anyOf": [
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            },
+                            "ruleset": {
+                              "additionalProperties": false,
+                              "properties": {
+                                "rollout": {
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "cohort_definition": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": true,
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "title": ""
+                                      },
+                                      "cohort_hash": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "name": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "rollout_percentage": {
+                                        "maximum": 1,
+                                        "minimum": 0,
+                                        "title": "",
+                                        "type": "number"
+                                      },
+                                      "runtime_evaluation_definition": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": true,
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "title": ""
+                                      },
+                                      "runtime_evaluation_rule": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": true,
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "runtime_event_rule": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": false,
+                                            "description": "Configuration for first-time event targeting in rollout groups.",
+                                            "properties": {
+                                              "duration": {
+                                                "anyOf": [
+                                                  {
+                                                    "enum": [
+                                                      "end_of_session",
+                                                      "indefinitely"
+                                                    ],
+                                                    "title": "FirstTimeEventDuration",
+                                                    "type": "string"
+                                                  },
+                                                  {
+                                                    "type": "null"
+                                                  }
+                                                ],
+                                                "default": null,
+                                                "title": ""
+                                              },
+                                              "event_name": {
+                                                "title": "",
+                                                "type": "string"
+                                              },
+                                              "property_filters": {
+                                                "anyOf": [
+                                                  {
+                                                    "additionalProperties": true,
+                                                    "type": "object"
+                                                  },
+                                                  {
+                                                    "type": "null"
+                                                  }
+                                                ],
+                                                "default": null,
+                                                "title": ""
+                                              },
+                                              "time_window": {
+                                                "enum": [
+                                                  "while_flag_enabled"
+                                                ],
+                                                "title": "RuntimeEventTimeWindow",
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "event_name",
+                                              "time_window"
+                                            ],
+                                            "title": "RuntimeEventRule",
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "variant_override": {
+                                        "anyOf": [
+                                          {
+                                            "additionalProperties": false,
+                                            "description": "A pointer to the variant defined under ruleset.variants[<key>]",
+                                            "properties": {
+                                              "key": {
+                                                "title": "",
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "key"
+                                            ],
+                                            "title": "ManagementVariantOverride",
+                                            "type": "object"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "variant_splits": {
+                                        "additionalProperties": {
+                                          "type": "number"
+                                        },
+                                        "title": "",
+                                        "type": "object"
+                                      }
+                                    },
+                                    "required": [
+                                      "rollout_percentage",
+                                      "variant_splits"
+                                    ],
+                                    "title": "ManagementRollout",
+                                    "type": "object"
+                                  },
+                                  "title": "",
+                                  "type": "array"
+                                },
+                                "test": {
+                                  "anyOf": [
+                                    {
+                                      "additionalProperties": {
+                                        "additionalProperties": {
+                                          "type": "string"
+                                        },
+                                        "type": "object"
+                                      },
+                                      "type": "object"
+                                    },
+                                    {
+                                      "type": "null"
+                                    }
+                                  ],
+                                  "default": null,
+                                  "title": ""
+                                },
+                                "variants": {
+                                  "items": {
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "description": {
+                                        "anyOf": [
+                                          {
+                                            "type": "string"
+                                          },
+                                          {
+                                            "type": "null"
+                                          }
+                                        ],
+                                        "default": null,
+                                        "title": ""
+                                      },
+                                      "is_control": {
+                                        "title": "",
+                                        "type": "boolean"
+                                      },
+                                      "is_sticky": {
+                                        "default": false,
+                                        "title": "",
+                                        "type": "boolean"
+                                      },
+                                      "key": {
+                                        "title": "",
+                                        "type": "string"
+                                      },
+                                      "split": {
+                                        "maximum": 1,
+                                        "minimum": 0,
+                                        "title": "",
+                                        "type": "number"
+                                      },
+                                      "value": {
+                                        "anyOf": [
+                                          {
+                                            "type": "boolean"
+                                          },
+                                          {
+                                            "maxLength": 32768,
+                                            "type": "string"
+                                          },
+                                          {}
+                                        ],
+                                        "title": ""
+                                      }
+                                    },
+                                    "required": [
+                                      "key",
+                                      "value",
+                                      "is_control",
+                                      "split"
+                                    ],
+                                    "title": "ManagementVariant",
+                                    "type": "object"
+                                  },
+                                  "maxItems": 11,
+                                  "title": "",
+                                  "type": "array"
+                                }
+                              },
+                              "required": [
+                                "variants",
+                                "rollout"
+                              ],
+                              "title": "ManagementRuleSet",
+                              "type": "object"
+                            },
+                            "serving_method": {
+                              "enum": [
+                                "client",
+                                "server",
+                                "remote_or_local",
+                                "remote_only"
+                              ],
+                              "title": "ServingMethod",
+                              "type": "string"
+                            },
+                            "status": {
+                              "default": "disabled",
+                              "enum": [
+                                "enabled",
+                                "disabled",
+                                "archived"
+                              ],
+                              "title": "FeatureFlagStatus",
+                              "type": "string"
+                            },
+                            "tags": {
+                              "items": {
+                                "type": "string"
+                              },
+                              "title": "",
+                              "type": "array"
+                            },
+                            "workspace_id": {
+                              "anyOf": [
+                                {
+                                  "type": "integer"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ],
+                              "default": null,
+                              "title": ""
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "key",
+                            "tags",
+                            "context",
+                            "serving_method",
+                            "ruleset",
+                            "id",
+                            "project_id",
+                            "content_type",
+                            "created",
+                            "creator_id",
+                            "creator_name",
+                            "creator_email",
+                            "modified"
+                          ],
+                          "title": "FeatureFlagApiResponse",
+                          "type": "object"
+                        },
+                        "status": {
+                          "const": "ok",
+                          "title": "",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "results"
+                      ],
+                      "title": "SingleFeatureFlagApiResponse",
+                      "type": "object"
+                    },
+                    {
+                      "additionalProperties": false,
+                      "properties": {
+                        "error": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "object"
+                            }
+                          ],
+                          "title": ""
+                        },
+                        "status": {
+                          "const": "error",
+                          "title": "",
+                          "type": "string"
+                        },
+                        "type": {
+                          "title": "",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "type",
+                        "error"
+                      ],
+                      "title": "ManagementApiErrorResponse",
+                      "type": "object"
+                    }
+                  ]
+                }
+              }
+            },
+            "description": "Success"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Details about the error that occurred",
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unauthorized"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "error": {
+                      "description": "Details about the error that occurred",
+                      "type": "string"
+                    },
+                    "status": {
+                      "enum": [
+                        "error"
+                      ],
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "ServiceAccount": []
+          }
+        ],
+        "securitySchemes": {
+          "OAuthToken": {
+            "description": "OAuth Token",
+            "scheme": "bearer",
+            "type": "http"
+          },
+          "ProjectSecret": {
+            "description": "Project Secret",
+            "scheme": "basic",
+            "type": "http"
+          },
+          "ServiceAccount": {
+            "description": "Service Account",
+            "scheme": "basic",
+            "type": "http"
+          }
+        },
+        "securitySource": "definition"
+      }
+    }
+  }
+}

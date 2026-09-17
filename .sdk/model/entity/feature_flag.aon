@@ -1,0 +1,433 @@
+# Entity: feature_flag
+
+main: kit: entity: feature_flag: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "context"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "data_group_id"
+      req: false
+      type: "`$STRING`"
+      union: {
+        branches: 2
+        count: 1
+        depth: 0
+      }
+    }
+    {
+      name: "description"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "experiment_id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "hash_salt"
+      req: false
+      type: "`$ANY`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "is_experiment_active"
+      req: false
+      type: "`$BOOLEAN`"
+    }
+    {
+      name: "key"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "name"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "reset_hash_salt"
+      req: false
+      type: "`$ANY`"
+    }
+    {
+      name: "ruleset"
+      req: true
+      type: "`$OBJECT`"
+      union: {
+        branches: 3
+        count: 1
+        depth: 5
+      }
+    }
+    {
+      name: "serving_method"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "status"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "tags"
+      req: true
+      type: "`$ARRAY`"
+    }
+    {
+      name: "workspace_id"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "feature_flag"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "project_id"
+                orig: "project_id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "workspace_id"
+                orig: "workspace_id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          contract: {
+            id: "POST /projects/{project_id}/workspaces/{workspace_id}/feature-flags"
+            json: "{\"operationId\":\"create-feature-flag\",\"parameters\":[{\"in\":\"path\",\"name\":\"project_id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"in\":\"path\",\"name\":\"workspace_id\",\"required\":true,\"schema\":{\"type\":\"integer\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"data_group_id\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"experiment_id\":{\"anyOf\":[{\"format\":\"uuid4\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"hash_salt\":{\"anyOf\":[{\"maxLength\":32,\"minLength\":32,\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_experiment_active\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"key\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"name\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"reset_hash_salt\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"ruleset\":{\"additionalProperties\":false,\"properties\":{\"rollout\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"cohort_definition\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"title\":\"\"},\"cohort_hash\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"rollout_percentage\":{\"maximum\":1,\"minimum\":0,\"title\":\"\",\"type\":\"number\"},\"runtime_evaluation_definition\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"title\":\"\"},\"runtime_evaluation_rule\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"runtime_event_rule\":{\"anyOf\":[{\"additionalProperties\":false,\"description\":\"Configuration for first-time event targeting in rollout groups.\",\"properties\":{\"duration\":{\"anyOf\":[{\"enum\":[\"end_of_session\",\"indefinitely\"],\"title\":\"FirstTimeEventDuration\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"event_name\":{\"title\":\"\",\"type\":\"string\"},\"property_filters\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"time_window\":{\"enum\":[\"while_flag_enabled\"],\"title\":\"RuntimeEventTimeWindow\",\"type\":\"string\"}},\"required\":[\"event_name\",\"time_window\"],\"title\":\"RuntimeEventRule\",\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variant_override\":{\"anyOf\":[{\"additionalProperties\":false,\"description\":\"A pointer to the variant defined under ruleset.variants[<key>]\",\"properties\":{\"key\":{\"title\":\"\",\"type\":\"string\"}},\"required\":[\"key\"],\"title\":\"ManagementVariantOverride\",\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variant_splits\":{\"additionalProperties\":{\"type\":\"number\"},\"title\":\"\",\"type\":\"object\"}},\"required\":[\"rollout_percentage\",\"variant_splits\"],\"title\":\"ManagementRollout\",\"type\":\"object\"},\"title\":\"\",\"type\":\"array\"},\"test\":{\"anyOf\":[{\"additionalProperties\":{\"additionalProperties\":{\"type\":\"string\"},\"type\":\"object\"},\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variants\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_control\":{\"title\":\"\",\"type\":\"boolean\"},\"is_sticky\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"key\":{\"title\":\"\",\"type\":\"string\"},\"split\":{\"maximum\":1,\"minimum\":0,\"title\":\"\",\"type\":\"number\"},\"value\":{\"anyOf\":[{\"type\":\"boolean\"},{\"maxLength\":32768,\"type\":\"string\"},{}],\"title\":\"\"}},\"required\":[\"key\",\"value\",\"is_control\",\"split\"],\"title\":\"ManagementVariant\",\"type\":\"object\"},\"maxItems\":11,\"title\":\"\",\"type\":\"array\"}},\"required\":[\"variants\",\"rollout\"],\"title\":\"ManagementRuleSet\",\"type\":\"object\"},\"serving_method\":{\"enum\":[\"client\",\"server\",\"remote_or_local\",\"remote_only\"],\"title\":\"ServingMethod\",\"type\":\"string\"},\"status\":{\"default\":\"disabled\",\"enum\":[\"enabled\",\"disabled\",\"archived\"],\"title\":\"FeatureFlagStatus\",\"type\":\"string\"},\"tags\":{\"items\":{\"type\":\"string\"},\"title\":\"\",\"type\":\"array\"},\"workspace_id\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"}},\"required\":[\"name\",\"key\",\"tags\",\"context\",\"serving_method\",\"ruleset\"],\"title\":\"FeatureFlagApiPayload\",\"type\":\"object\"}}}},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"anyOf\":[{\"additionalProperties\":false,\"properties\":{\"results\":{\"additionalProperties\":false,\"properties\":{\"allow_staff_override\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_pin\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_share\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_update_basic\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_view\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"content_environments_id\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"content_type\":{\"const\":\"feature-flags\",\"title\":\"\",\"type\":\"string\"},\"context\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"created\":{\"format\":\"date-time\",\"title\":\"\",\"type\":\"string\"},\"creator_email\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"\"},\"creator_id\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"title\":\"\"},\"creator_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"\"},\"data_group_id\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"deleted\":{\"anyOf\":[{\"format\":\"date-time\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"enabled_at\":{\"anyOf\":[{\"format\":\"date-time\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"experiment_id\":{\"anyOf\":[{\"format\":\"uuid4\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"hash_salt\":{\"anyOf\":[{\"maxLength\":32,\"minLength\":32,\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"id\":{\"format\":\"uuid4\",\"title\":\"\",\"type\":\"string\"},\"is_experiment_active\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_favorited\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_shared_with_project\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"is_superadmin\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"key\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"last_modified_by_email\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"last_modified_by_id\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"last_modified_by_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"modified\":{\"format\":\"date-time\",\"title\":\"\",\"type\":\"string\"},\"name\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"pinned_date\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"project_id\":{\"title\":\"\",\"type\":\"integer\"},\"project_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"reset_hash_salt\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"ruleset\":{\"additionalProperties\":false,\"properties\":{\"rollout\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"cohort_definition\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"title\":\"\"},\"cohort_hash\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"rollout_percentage\":{\"maximum\":1,\"minimum\":0,\"title\":\"\",\"type\":\"number\"},\"runtime_evaluation_definition\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"title\":\"\"},\"runtime_evaluation_rule\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"runtime_event_rule\":{\"anyOf\":[{\"additionalProperties\":false,\"description\":\"Configuration for first-time event targeting in rollout groups.\",\"properties\":{\"duration\":{\"anyOf\":[{\"enum\":[\"end_of_session\",\"indefinitely\"],\"title\":\"FirstTimeEventDuration\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"event_name\":{\"title\":\"\",\"type\":\"string\"},\"property_filters\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"time_window\":{\"enum\":[\"while_flag_enabled\"],\"title\":\"RuntimeEventTimeWindow\",\"type\":\"string\"}},\"required\":[\"event_name\",\"time_window\"],\"title\":\"RuntimeEventRule\",\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variant_override\":{\"anyOf\":[{\"additionalProperties\":false,\"description\":\"A pointer to the variant defined under ruleset.variants[<key>]\",\"properties\":{\"key\":{\"title\":\"\",\"type\":\"string\"}},\"required\":[\"key\"],\"title\":\"ManagementVariantOverride\",\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variant_splits\":{\"additionalProperties\":{\"type\":\"number\"},\"title\":\"\",\"type\":\"object\"}},\"required\":[\"rollout_percentage\",\"variant_splits\"],\"title\":\"ManagementRollout\",\"type\":\"object\"},\"title\":\"\",\"type\":\"array\"},\"test\":{\"anyOf\":[{\"additionalProperties\":{\"additionalProperties\":{\"type\":\"string\"},\"type\":\"object\"},\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variants\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_control\":{\"title\":\"\",\"type\":\"boolean\"},\"is_sticky\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"key\":{\"title\":\"\",\"type\":\"string\"},\"split\":{\"maximum\":1,\"minimum\":0,\"title\":\"\",\"type\":\"number\"},\"value\":{\"anyOf\":[{\"type\":\"boolean\"},{\"maxLength\":32768,\"type\":\"string\"},{}],\"title\":\"\"}},\"required\":[\"key\",\"value\",\"is_control\",\"split\"],\"title\":\"ManagementVariant\",\"type\":\"object\"},\"maxItems\":11,\"title\":\"\",\"type\":\"array\"}},\"required\":[\"variants\",\"rollout\"],\"title\":\"ManagementRuleSet\",\"type\":\"object\"},\"serving_method\":{\"enum\":[\"client\",\"server\",\"remote_or_local\",\"remote_only\"],\"title\":\"ServingMethod\",\"type\":\"string\"},\"status\":{\"default\":\"disabled\",\"enum\":[\"enabled\",\"disabled\",\"archived\"],\"title\":\"FeatureFlagStatus\",\"type\":\"string\"},\"tags\":{\"items\":{\"type\":\"string\"},\"title\":\"\",\"type\":\"array\"},\"workspace_id\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"}},\"required\":[\"name\",\"key\",\"tags\",\"context\",\"serving_method\",\"ruleset\",\"id\",\"project_id\",\"content_type\",\"created\",\"creator_id\",\"creator_name\",\"creator_email\",\"modified\"],\"title\":\"FeatureFlagApiResponse\",\"type\":\"object\"},\"status\":{\"const\":\"ok\",\"title\":\"\",\"type\":\"string\"}},\"required\":[\"status\",\"results\"],\"title\":\"SingleFeatureFlagApiResponse\",\"type\":\"object\"},{\"additionalProperties\":false,\"properties\":{\"error\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"object\"}],\"title\":\"\"},\"status\":{\"const\":\"error\",\"title\":\"\",\"type\":\"string\"},\"type\":{\"title\":\"\",\"type\":\"string\"}},\"required\":[\"status\",\"type\",\"error\"],\"title\":\"ManagementApiErrorResponse\",\"type\":\"object\"}]}}},\"description\":\"Success\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
+          }
+          method: "POST"
+          orig: "/projects/{project_id}/workspaces/{workspace_id}/feature-flags"
+          segments: [
+            {
+              lit: "projects"
+            }
+            {
+              var: "project_id"
+            }
+            {
+              lit: "workspaces"
+            }
+            {
+              var: "workspace_id"
+            }
+            {
+              lit: "feature-flags"
+            }
+          ]
+          select: {
+            exist: [
+              "project_id"
+              "workspace_id"
+            ]
+          }
+          transform: {
+            req: {
+              context: "`reqdata.context`"
+              data_group_id: "`reqdata.data_group_id`"
+              description: "`reqdata.description`"
+              experiment_id: "`reqdata.experiment_id`"
+              hash_salt: "`reqdata.hash_salt`"
+              is_experiment_active: "`reqdata.is_experiment_active`"
+              key: "`reqdata.key`"
+              name: "`reqdata.name`"
+              reset_hash_salt: "`reqdata.reset_hash_salt`"
+              ruleset: "`reqdata.ruleset`"
+              serving_method: "`reqdata.serving_method`"
+              status: "`reqdata.status`"
+              tags: "`reqdata.tag`"
+              workspace_id: "`reqdata.workspace_id`"
+            }
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "flag_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "project_id"
+                orig: "project_id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "workspace_id"
+                orig: "workspace_id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          contract: {
+            id: "GET /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+            json: "{\"operationId\":\"get-feature-flag\",\"parameters\":[{\"in\":\"path\",\"name\":\"project_id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"in\":\"path\",\"name\":\"workspace_id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"in\":\"path\",\"name\":\"flag_id\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"anyOf\":[{\"additionalProperties\":false,\"properties\":{\"results\":{\"additionalProperties\":false,\"properties\":{\"allow_staff_override\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_pin\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_share\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_update_basic\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_view\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"content_environments_id\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"content_type\":{\"const\":\"feature-flags\",\"title\":\"\",\"type\":\"string\"},\"context\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"created\":{\"format\":\"date-time\",\"title\":\"\",\"type\":\"string\"},\"creator_email\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"\"},\"creator_id\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"title\":\"\"},\"creator_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"\"},\"data_group_id\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"deleted\":{\"anyOf\":[{\"format\":\"date-time\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"enabled_at\":{\"anyOf\":[{\"format\":\"date-time\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"experiment_id\":{\"anyOf\":[{\"format\":\"uuid4\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"hash_salt\":{\"anyOf\":[{\"maxLength\":32,\"minLength\":32,\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"id\":{\"format\":\"uuid4\",\"title\":\"\",\"type\":\"string\"},\"is_experiment_active\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_favorited\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_shared_with_project\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"is_superadmin\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"key\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"last_modified_by_email\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"last_modified_by_id\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"last_modified_by_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"modified\":{\"format\":\"date-time\",\"title\":\"\",\"type\":\"string\"},\"name\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"pinned_date\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"project_id\":{\"title\":\"\",\"type\":\"integer\"},\"project_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"reset_hash_salt\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"ruleset\":{\"additionalProperties\":false,\"properties\":{\"rollout\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"cohort_definition\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"title\":\"\"},\"cohort_hash\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"rollout_percentage\":{\"maximum\":1,\"minimum\":0,\"title\":\"\",\"type\":\"number\"},\"runtime_evaluation_definition\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"title\":\"\"},\"runtime_evaluation_rule\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"runtime_event_rule\":{\"anyOf\":[{\"additionalProperties\":false,\"description\":\"Configuration for first-time event targeting in rollout groups.\",\"properties\":{\"duration\":{\"anyOf\":[{\"enum\":[\"end_of_session\",\"indefinitely\"],\"title\":\"FirstTimeEventDuration\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"event_name\":{\"title\":\"\",\"type\":\"string\"},\"property_filters\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"time_window\":{\"enum\":[\"while_flag_enabled\"],\"title\":\"RuntimeEventTimeWindow\",\"type\":\"string\"}},\"required\":[\"event_name\",\"time_window\"],\"title\":\"RuntimeEventRule\",\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variant_override\":{\"anyOf\":[{\"additionalProperties\":false,\"description\":\"A pointer to the variant defined under ruleset.variants[<key>]\",\"properties\":{\"key\":{\"title\":\"\",\"type\":\"string\"}},\"required\":[\"key\"],\"title\":\"ManagementVariantOverride\",\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variant_splits\":{\"additionalProperties\":{\"type\":\"number\"},\"title\":\"\",\"type\":\"object\"}},\"required\":[\"rollout_percentage\",\"variant_splits\"],\"title\":\"ManagementRollout\",\"type\":\"object\"},\"title\":\"\",\"type\":\"array\"},\"test\":{\"anyOf\":[{\"additionalProperties\":{\"additionalProperties\":{\"type\":\"string\"},\"type\":\"object\"},\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variants\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_control\":{\"title\":\"\",\"type\":\"boolean\"},\"is_sticky\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"key\":{\"title\":\"\",\"type\":\"string\"},\"split\":{\"maximum\":1,\"minimum\":0,\"title\":\"\",\"type\":\"number\"},\"value\":{\"anyOf\":[{\"type\":\"boolean\"},{\"maxLength\":32768,\"type\":\"string\"},{}],\"title\":\"\"}},\"required\":[\"key\",\"value\",\"is_control\",\"split\"],\"title\":\"ManagementVariant\",\"type\":\"object\"},\"maxItems\":11,\"title\":\"\",\"type\":\"array\"}},\"required\":[\"variants\",\"rollout\"],\"title\":\"ManagementRuleSet\",\"type\":\"object\"},\"serving_method\":{\"enum\":[\"client\",\"server\",\"remote_or_local\",\"remote_only\"],\"title\":\"ServingMethod\",\"type\":\"string\"},\"status\":{\"default\":\"disabled\",\"enum\":[\"enabled\",\"disabled\",\"archived\"],\"title\":\"FeatureFlagStatus\",\"type\":\"string\"},\"tags\":{\"items\":{\"type\":\"string\"},\"title\":\"\",\"type\":\"array\"},\"workspace_id\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"}},\"required\":[\"name\",\"key\",\"tags\",\"context\",\"serving_method\",\"ruleset\",\"id\",\"project_id\",\"content_type\",\"created\",\"creator_id\",\"creator_name\",\"creator_email\",\"modified\"],\"title\":\"FeatureFlagApiResponse\",\"type\":\"object\"},\"status\":{\"const\":\"ok\",\"title\":\"\",\"type\":\"string\"}},\"required\":[\"status\",\"results\"],\"title\":\"SingleFeatureFlagApiResponse\",\"type\":\"object\"},{\"additionalProperties\":false,\"properties\":{\"error\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"object\"}],\"title\":\"\"},\"status\":{\"const\":\"error\",\"title\":\"\",\"type\":\"string\"},\"type\":{\"title\":\"\",\"type\":\"string\"}},\"required\":[\"status\",\"type\",\"error\"],\"title\":\"ManagementApiErrorResponse\",\"type\":\"object\"}]}}},\"description\":\"Success\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
+          }
+          method: "GET"
+          orig: "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+          rename: {
+            param: {
+              flag_id: "id"
+            }
+          }
+          segments: [
+            {
+              lit: "projects"
+            }
+            {
+              var: "project_id"
+            }
+            {
+              lit: "workspaces"
+            }
+            {
+              var: "workspace_id"
+            }
+            {
+              lit: "feature-flags"
+            }
+            {
+              var: "id"
+            }
+          ]
+          select: {
+            exist: [
+              "id"
+              "project_id"
+              "workspace_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "flag_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "project_id"
+                orig: "project_id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "workspace_id"
+                orig: "workspace_id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          contract: {
+            id: "DELETE /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+            json: "{\"operationId\":\"delete-feature-flag\",\"parameters\":[{\"in\":\"path\",\"name\":\"project_id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"in\":\"path\",\"name\":\"workspace_id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"in\":\"path\",\"name\":\"flag_id\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"anyOf\":[{\"additionalProperties\":false,\"properties\":{\"results\":{\"additionalProperties\":true,\"title\":\"\",\"type\":\"object\"},\"status\":{\"const\":\"ok\",\"title\":\"\",\"type\":\"string\"}},\"required\":[\"status\",\"results\"],\"title\":\"DeleteFeatureFlagApiResponse\",\"type\":\"object\"},{\"additionalProperties\":false,\"properties\":{\"error\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"object\"}],\"title\":\"\"},\"status\":{\"const\":\"error\",\"title\":\"\",\"type\":\"string\"},\"type\":{\"title\":\"\",\"type\":\"string\"}},\"required\":[\"status\",\"type\",\"error\"],\"title\":\"ManagementApiErrorResponse\",\"type\":\"object\"}]}}},\"description\":\"Success\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
+          }
+          method: "DELETE"
+          orig: "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+          rename: {
+            param: {
+              flag_id: "id"
+            }
+          }
+          segments: [
+            {
+              lit: "projects"
+            }
+            {
+              var: "project_id"
+            }
+            {
+              lit: "workspaces"
+            }
+            {
+              var: "workspace_id"
+            }
+            {
+              lit: "feature-flags"
+            }
+            {
+              var: "id"
+            }
+          ]
+          select: {
+            exist: [
+              "id"
+              "project_id"
+              "workspace_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "flag_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "project_id"
+                orig: "project_id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+              {
+                kind: "param"
+                name: "workspace_id"
+                orig: "workspace_id"
+                reqd: true
+                type: "`$INTEGER`"
+              }
+            ]
+          }
+          contract: {
+            id: "PUT /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+            json: "{\"operationId\":\"update-feature-flag\",\"parameters\":[{\"in\":\"path\",\"name\":\"project_id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"in\":\"path\",\"name\":\"workspace_id\",\"required\":true,\"schema\":{\"type\":\"integer\"}},{\"in\":\"path\",\"name\":\"flag_id\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":false,\"properties\":{\"context\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"data_group_id\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"experiment_id\":{\"anyOf\":[{\"format\":\"uuid4\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"hash_salt\":{\"anyOf\":[{\"maxLength\":32,\"minLength\":32,\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_experiment_active\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"key\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"name\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"reset_hash_salt\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"ruleset\":{\"additionalProperties\":false,\"properties\":{\"rollout\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"cohort_definition\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"title\":\"\"},\"cohort_hash\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"rollout_percentage\":{\"maximum\":1,\"minimum\":0,\"title\":\"\",\"type\":\"number\"},\"runtime_evaluation_definition\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"title\":\"\"},\"runtime_evaluation_rule\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"runtime_event_rule\":{\"anyOf\":[{\"additionalProperties\":false,\"description\":\"Configuration for first-time event targeting in rollout groups.\",\"properties\":{\"duration\":{\"anyOf\":[{\"enum\":[\"end_of_session\",\"indefinitely\"],\"title\":\"FirstTimeEventDuration\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"event_name\":{\"title\":\"\",\"type\":\"string\"},\"property_filters\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"time_window\":{\"enum\":[\"while_flag_enabled\"],\"title\":\"RuntimeEventTimeWindow\",\"type\":\"string\"}},\"required\":[\"event_name\",\"time_window\"],\"title\":\"RuntimeEventRule\",\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variant_override\":{\"anyOf\":[{\"additionalProperties\":false,\"description\":\"A pointer to the variant defined under ruleset.variants[<key>]\",\"properties\":{\"key\":{\"title\":\"\",\"type\":\"string\"}},\"required\":[\"key\"],\"title\":\"ManagementVariantOverride\",\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variant_splits\":{\"additionalProperties\":{\"type\":\"number\"},\"title\":\"\",\"type\":\"object\"}},\"required\":[\"rollout_percentage\",\"variant_splits\"],\"title\":\"ManagementRollout\",\"type\":\"object\"},\"title\":\"\",\"type\":\"array\"},\"test\":{\"anyOf\":[{\"additionalProperties\":{\"additionalProperties\":{\"type\":\"string\"},\"type\":\"object\"},\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variants\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_control\":{\"title\":\"\",\"type\":\"boolean\"},\"is_sticky\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"key\":{\"title\":\"\",\"type\":\"string\"},\"split\":{\"maximum\":1,\"minimum\":0,\"title\":\"\",\"type\":\"number\"},\"value\":{\"anyOf\":[{\"type\":\"boolean\"},{\"maxLength\":32768,\"type\":\"string\"},{}],\"title\":\"\"}},\"required\":[\"key\",\"value\",\"is_control\",\"split\"],\"title\":\"ManagementVariant\",\"type\":\"object\"},\"maxItems\":11,\"title\":\"\",\"type\":\"array\"}},\"required\":[\"variants\",\"rollout\"],\"title\":\"ManagementRuleSet\",\"type\":\"object\"},\"serving_method\":{\"enum\":[\"client\",\"server\",\"remote_or_local\",\"remote_only\"],\"title\":\"ServingMethod\",\"type\":\"string\"},\"status\":{\"default\":\"disabled\",\"enum\":[\"enabled\",\"disabled\",\"archived\"],\"title\":\"FeatureFlagStatus\",\"type\":\"string\"},\"tags\":{\"items\":{\"type\":\"string\"},\"title\":\"\",\"type\":\"array\"},\"workspace_id\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"}},\"required\":[\"name\",\"key\",\"tags\",\"context\",\"serving_method\",\"ruleset\"],\"title\":\"FeatureFlagApiPayload\",\"type\":\"object\"}}}},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"anyOf\":[{\"additionalProperties\":false,\"properties\":{\"results\":{\"additionalProperties\":false,\"properties\":{\"allow_staff_override\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_pin\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_share\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_update_basic\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"can_view\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"content_environments_id\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"content_type\":{\"const\":\"feature-flags\",\"title\":\"\",\"type\":\"string\"},\"context\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"created\":{\"format\":\"date-time\",\"title\":\"\",\"type\":\"string\"},\"creator_email\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"\"},\"creator_id\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"title\":\"\"},\"creator_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"\"},\"data_group_id\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"deleted\":{\"anyOf\":[{\"format\":\"date-time\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"enabled_at\":{\"anyOf\":[{\"format\":\"date-time\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"experiment_id\":{\"anyOf\":[{\"format\":\"uuid4\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"hash_salt\":{\"anyOf\":[{\"maxLength\":32,\"minLength\":32,\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"id\":{\"format\":\"uuid4\",\"title\":\"\",\"type\":\"string\"},\"is_experiment_active\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_favorited\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_shared_with_project\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"is_superadmin\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"key\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"last_modified_by_email\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"last_modified_by_id\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"last_modified_by_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"modified\":{\"format\":\"date-time\",\"title\":\"\",\"type\":\"string\"},\"name\":{\"maxLength\":255,\"minLength\":1,\"title\":\"\",\"type\":\"string\"},\"pinned_date\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"project_id\":{\"title\":\"\",\"type\":\"integer\"},\"project_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"reset_hash_salt\":{\"anyOf\":[{\"type\":\"boolean\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"ruleset\":{\"additionalProperties\":false,\"properties\":{\"rollout\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"cohort_definition\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"title\":\"\"},\"cohort_hash\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"rollout_percentage\":{\"maximum\":1,\"minimum\":0,\"title\":\"\",\"type\":\"number\"},\"runtime_evaluation_definition\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"title\":\"\"},\"runtime_evaluation_rule\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"runtime_event_rule\":{\"anyOf\":[{\"additionalProperties\":false,\"description\":\"Configuration for first-time event targeting in rollout groups.\",\"properties\":{\"duration\":{\"anyOf\":[{\"enum\":[\"end_of_session\",\"indefinitely\"],\"title\":\"FirstTimeEventDuration\",\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"event_name\":{\"title\":\"\",\"type\":\"string\"},\"property_filters\":{\"anyOf\":[{\"additionalProperties\":true,\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"time_window\":{\"enum\":[\"while_flag_enabled\"],\"title\":\"RuntimeEventTimeWindow\",\"type\":\"string\"}},\"required\":[\"event_name\",\"time_window\"],\"title\":\"RuntimeEventRule\",\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variant_override\":{\"anyOf\":[{\"additionalProperties\":false,\"description\":\"A pointer to the variant defined under ruleset.variants[<key>]\",\"properties\":{\"key\":{\"title\":\"\",\"type\":\"string\"}},\"required\":[\"key\"],\"title\":\"ManagementVariantOverride\",\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variant_splits\":{\"additionalProperties\":{\"type\":\"number\"},\"title\":\"\",\"type\":\"object\"}},\"required\":[\"rollout_percentage\",\"variant_splits\"],\"title\":\"ManagementRollout\",\"type\":\"object\"},\"title\":\"\",\"type\":\"array\"},\"test\":{\"anyOf\":[{\"additionalProperties\":{\"additionalProperties\":{\"type\":\"string\"},\"type\":\"object\"},\"type\":\"object\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"variants\":{\"items\":{\"additionalProperties\":false,\"properties\":{\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"},\"is_control\":{\"title\":\"\",\"type\":\"boolean\"},\"is_sticky\":{\"default\":false,\"title\":\"\",\"type\":\"boolean\"},\"key\":{\"title\":\"\",\"type\":\"string\"},\"split\":{\"maximum\":1,\"minimum\":0,\"title\":\"\",\"type\":\"number\"},\"value\":{\"anyOf\":[{\"type\":\"boolean\"},{\"maxLength\":32768,\"type\":\"string\"},{}],\"title\":\"\"}},\"required\":[\"key\",\"value\",\"is_control\",\"split\"],\"title\":\"ManagementVariant\",\"type\":\"object\"},\"maxItems\":11,\"title\":\"\",\"type\":\"array\"}},\"required\":[\"variants\",\"rollout\"],\"title\":\"ManagementRuleSet\",\"type\":\"object\"},\"serving_method\":{\"enum\":[\"client\",\"server\",\"remote_or_local\",\"remote_only\"],\"title\":\"ServingMethod\",\"type\":\"string\"},\"status\":{\"default\":\"disabled\",\"enum\":[\"enabled\",\"disabled\",\"archived\"],\"title\":\"FeatureFlagStatus\",\"type\":\"string\"},\"tags\":{\"items\":{\"type\":\"string\"},\"title\":\"\",\"type\":\"array\"},\"workspace_id\":{\"anyOf\":[{\"type\":\"integer\"},{\"type\":\"null\"}],\"default\":null,\"title\":\"\"}},\"required\":[\"name\",\"key\",\"tags\",\"context\",\"serving_method\",\"ruleset\",\"id\",\"project_id\",\"content_type\",\"created\",\"creator_id\",\"creator_name\",\"creator_email\",\"modified\"],\"title\":\"FeatureFlagApiResponse\",\"type\":\"object\"},\"status\":{\"const\":\"ok\",\"title\":\"\",\"type\":\"string\"}},\"required\":[\"status\",\"results\"],\"title\":\"SingleFeatureFlagApiResponse\",\"type\":\"object\"},{\"additionalProperties\":false,\"properties\":{\"error\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"object\"}],\"title\":\"\"},\"status\":{\"const\":\"error\",\"title\":\"\",\"type\":\"string\"},\"type\":{\"title\":\"\",\"type\":\"string\"}},\"required\":[\"status\",\"type\",\"error\"],\"title\":\"ManagementApiErrorResponse\",\"type\":\"object\"}]}}},\"description\":\"Success\"},\"401\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Unauthorized\"},\"403\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"error\":{\"description\":\"Details about the error that occurred\",\"type\":\"string\"},\"status\":{\"enum\":[\"error\"],\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Forbidden\"}},\"security\":[{\"ServiceAccount\":[]}],\"securitySchemes\":{\"OAuthToken\":{\"description\":\"OAuth Token\",\"scheme\":\"bearer\",\"type\":\"http\"},\"ProjectSecret\":{\"description\":\"Project Secret\",\"scheme\":\"basic\",\"type\":\"http\"},\"ServiceAccount\":{\"description\":\"Service Account\",\"scheme\":\"basic\",\"type\":\"http\"}},\"securitySource\":\"definition\"}"
+            source: "openapi3"
+            version: 1
+          }
+          method: "PUT"
+          orig: "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+          rename: {
+            param: {
+              flag_id: "id"
+            }
+          }
+          segments: [
+            {
+              lit: "projects"
+            }
+            {
+              var: "project_id"
+            }
+            {
+              lit: "workspaces"
+            }
+            {
+              var: "workspace_id"
+            }
+            {
+              lit: "feature-flags"
+            }
+            {
+              var: "id"
+            }
+          ]
+          select: {
+            exist: [
+              "id"
+              "project_id"
+              "workspace_id"
+            ]
+          }
+          transform: {
+            req: {
+              context: "`reqdata.context`"
+              data_group_id: "`reqdata.data_group_id`"
+              description: "`reqdata.description`"
+              experiment_id: "`reqdata.experiment_id`"
+              hash_salt: "`reqdata.hash_salt`"
+              is_experiment_active: "`reqdata.is_experiment_active`"
+              key: "`reqdata.key`"
+              name: "`reqdata.name`"
+              reset_hash_salt: "`reqdata.reset_hash_salt`"
+              ruleset: "`reqdata.ruleset`"
+              serving_method: "`reqdata.serving_method`"
+              status: "`reqdata.status`"
+              tags: "`reqdata.tag`"
+              workspace_id: "`reqdata.workspace_id`"
+            }
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "project"
+        "workspace"
+      ]
+    ]
+  }
+
+
+
+}

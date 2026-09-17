@@ -1,0 +1,33 @@
+# BasicListFeatureFlagFlow
+
+main: kit: flow: BasicListFeatureFlagFlow:
+{
+  entity: "list_feature_flag",
+  kind: "basic",
+  name: "BasicListFeatureFlagFlow",
+  step: [
+    {
+      input: {
+        ref: "list_feature_flag_ref01",
+        srcdatavar: "list_feature_flag_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "list_feature_flag01",
+        project_id: "project01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-list_feature_flag_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicListFeatureFlagFlow"
+}

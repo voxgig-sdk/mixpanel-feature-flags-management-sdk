@@ -1,0 +1,18 @@
+# Entity: workspace
+
+main: kit: entity: workspace: {
+
+  alias: field: {}
+
+  name: "workspace"
+  relations: {
+    ancestors: [
+      [
+        "project"
+      ]
+    ]
+  }
+
+
+
+}

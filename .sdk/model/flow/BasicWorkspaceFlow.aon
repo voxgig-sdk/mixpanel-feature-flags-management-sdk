@@ -1,0 +1,9 @@
+# BasicWorkspaceFlow
+
+main: kit: flow: BasicWorkspaceFlow:
+{
+  entity: "workspace",
+  kind: "basic",
+  name: "BasicWorkspaceFlow",
+  "key$": "BasicWorkspaceFlow"
+}

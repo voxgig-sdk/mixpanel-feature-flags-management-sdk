@@ -1,0 +1,86 @@
+# BasicFeatureFlagFlow
+
+main: kit: flow: BasicFeatureFlagFlow:
+{
+  entity: "feature_flag",
+  kind: "basic",
+  name: "BasicFeatureFlagFlow",
+  step: [
+    {
+      input: {
+        ref: "feature_flag_ref01"
+      }
+
+      match: {
+        project_id: "project01",
+        workspace_id: "workspace01"
+      }
+
+      op: "create"
+    }
+
+    {
+      data: {
+        project_id: "project01",
+        workspace_id: "workspace01"
+      }
+
+      input: {
+        ref: "feature_flag_ref01",
+        srcdatavar: "feature_flag_ref01_data",
+        suffix: "_up0",
+        textfield: "context"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-feature_flag_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "feature_flag_ref01",
+        srcdatavar: "feature_flag_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "feature_flag01",
+        project_id: "project01",
+        workspace_id: "workspace01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-feature_flag_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "feature_flag_ref01",
+        suffix: "_rm0"
+      }
+
+      match: {
+        id: "feature_flag01",
+        project_id: "project01",
+        workspace_id: "workspace01"
+      }
+
+      op: "remove"
+    }
+  ],
+  "key$": "BasicFeatureFlagFlow"
+}

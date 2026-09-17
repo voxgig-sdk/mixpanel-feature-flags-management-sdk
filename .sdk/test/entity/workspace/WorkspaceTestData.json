@@ -1,0 +1,15 @@
+{
+  "existing": {
+    "workspace": {
+      "WORKSPACE00": {},
+      "WORKSPACE01": {},
+      "WORKSPACE02": {}
+    }
+  },
+  "new": {
+    "workspace": {
+      "workspace_ref01": {}
+    }
+  },
+  "requests": {}
+}
