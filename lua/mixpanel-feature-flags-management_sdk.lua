@@ -381,20 +381,6 @@ function MixpanelFeatureFlagsManagementSDK:ListFeatureFlag(data)
 end
 
 
--- Idiomatic facade: client:Workspace():list() / client:Workspace():load({ id = ... })
--- Entity access is capitalised (PascalCase) for parity with the other SDKs.
-function MixpanelFeatureFlagsManagementSDK:Workspace(data)
-  local EntityMod = require("entity.workspace_entity")
-  if data == nil then
-    if self._workspace == nil then
-      self._workspace = EntityMod.new(self, nil)
-    end
-    return self._workspace
-  end
-  return EntityMod.new(self, data)
-end
-
-
 
 
 function MixpanelFeatureFlagsManagementSDK.test(testopts, sdkopts)

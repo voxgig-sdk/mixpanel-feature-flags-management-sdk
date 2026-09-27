@@ -1,0 +1,57 @@
+# Generated from the API definition and overwritten on every build: do not
+# edit this file. Put customizations in the guide entry file, which includes
+# this one and overrides its defaults:
+#   guide.aontu
+
+guide: {
+  metrics: count: entity: 2
+  metrics: count: path: 2
+  metrics: count: method: 5
+
+  entity: feature_flag: {
+    path: "/projects/{project_id}/workspaces/{workspace_id}/feature-flags": {
+      op: create: method: *POST
+      op: create: transform: req: "context": *("`reqdata.context`")|top
+      op: create: transform: req: "data_group_id": *("`reqdata.data_group_id`")|top
+      op: create: transform: req: "description": *("`reqdata.description`")|top
+      op: create: transform: req: "experiment_id": *("`reqdata.experiment_id`")|top
+      op: create: transform: req: "hash_salt": *("`reqdata.hash_salt`")|top
+      op: create: transform: req: "is_experiment_active": *("`reqdata.is_experiment_active`")|top
+      op: create: transform: req: "key": *("`reqdata.key`")|top
+      op: create: transform: req: "name": *("`reqdata.name`")|top
+      op: create: transform: req: "reset_hash_salt": *("`reqdata.reset_hash_salt`")|top
+      op: create: transform: req: "ruleset": *("`reqdata.ruleset`")|top
+      op: create: transform: req: "serving_method": *("`reqdata.serving_method`")|top
+      op: create: transform: req: "status": *("`reqdata.status`")|top
+      op: create: transform: req: "tags": *("`reqdata.tag`")|top
+      op: create: transform: req: "workspace_id": *("`reqdata.workspace_id`")|top
+    }
+    path: "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}": {
+      rename: param: "flag_id": *"id"
+      op: load: method: *GET
+      op: remove: method: *DELETE
+      op: update: method: *PUT
+      op: update: transform: req: "context": *("`reqdata.context`")|top
+      op: update: transform: req: "data_group_id": *("`reqdata.data_group_id`")|top
+      op: update: transform: req: "description": *("`reqdata.description`")|top
+      op: update: transform: req: "experiment_id": *("`reqdata.experiment_id`")|top
+      op: update: transform: req: "hash_salt": *("`reqdata.hash_salt`")|top
+      op: update: transform: req: "is_experiment_active": *("`reqdata.is_experiment_active`")|top
+      op: update: transform: req: "key": *("`reqdata.key`")|top
+      op: update: transform: req: "name": *("`reqdata.name`")|top
+      op: update: transform: req: "reset_hash_salt": *("`reqdata.reset_hash_salt`")|top
+      op: update: transform: req: "ruleset": *("`reqdata.ruleset`")|top
+      op: update: transform: req: "serving_method": *("`reqdata.serving_method`")|top
+      op: update: transform: req: "status": *("`reqdata.status`")|top
+      op: update: transform: req: "tags": *("`reqdata.tag`")|top
+      op: update: transform: req: "workspace_id": *("`reqdata.workspace_id`")|top
+    }
+  }
+
+  entity: list_feature_flag: {
+    path: "/projects/{project_id}/workspaces/{workspace_id}/feature-flags": {
+      op: load: method: *GET
+    }
+  }
+
+}

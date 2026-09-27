@@ -6,7 +6,7 @@ Use the Feature Flags Management API to create, update, delete, and manage featu
 
 This guide introduces the API, the client libraries, and the companion tools in this repository. Start with the API capabilities, choose a client for your application, and use the linked reference when you need exact request and response details.
 
-The selected API surface contains 3 entities and 5 HTTP routes. There are 6 SDK targets and 2 companion tools.
+The selected API surface contains 2 entities and 5 HTTP routes. There are 6 SDK targets and 2 companion tools.
 
 An entity groups related API operations. An operation can have several routes with different inputs or authentication requirements. The SDK exposes the entity and its operations using the conventions of the selected language.
 
@@ -23,10 +23,6 @@ SDK operations: `create`, `load`, `remove`, `update`.
 Results: Success.
 
 SDK operations: `load`.
-
-### [Workspace](docs/api/workspace.html)
-
-SDK operations: .
 
 ### Route map
 
@@ -46,11 +42,11 @@ Use this map to locate a capability. Consult the entity reference before supplyi
 
 The default credential is sent in the `Authorization` header with the `Basic` prefix.
 
-OAuth Token
+Service Account
 
 Project Secret
 
-Service Account
+OAuth Token
 
 Check authentication for the route you plan to call. A route that declares no authentication can be used without credentials; this does not change the requirements of other routes. Keep credentials in environment variables or a configured secret provider, and keep them out of source control and logs.
 

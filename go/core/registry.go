@@ -24,5 +24,3 @@ var NewFeatureFlagEntityFunc func(client *MixpanelFeatureFlagsManagementSDK, ent
 
 var NewListFeatureFlagEntityFunc func(client *MixpanelFeatureFlagsManagementSDK, entopts map[string]any) MixpanelFeatureFlagsManagementEntity
 
-var NewWorkspaceEntityFunc func(client *MixpanelFeatureFlagsManagementSDK, entopts map[string]any) MixpanelFeatureFlagsManagementEntity
-

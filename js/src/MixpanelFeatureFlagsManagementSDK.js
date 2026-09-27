@@ -2,7 +2,6 @@
 
 const { FeatureFlagEntity } = require('./entity/FeatureFlagEntity')
 const { ListFeatureFlagEntity } = require('./entity/ListFeatureFlagEntity')
-const { WorkspaceEntity } = require('./entity/WorkspaceEntity')
 
 
 const { inspect } = require('node:util')
@@ -310,15 +309,6 @@ class MixpanelFeatureFlagsManagementSDK {
   ListFeatureFlag(entopts) {
     const self = this
     return new ListFeatureFlagEntity(self, entopts)
-  }
-
-
-  // Entity access: `client.Workspace().list()` / `client.Workspace().load({ id })`.
-  // The argument is the entity OPTIONS object (passed to the entity
-  // constructor as entopts), not initial entity data.
-  Workspace(entopts) {
-    const self = this
-    return new WorkspaceEntity(self, entopts)
   }
 
 

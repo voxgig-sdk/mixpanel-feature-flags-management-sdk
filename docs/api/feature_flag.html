@@ -10,8 +10,7 @@
 <a class="nav-section" href="#get-projectsproject_idworkspacesworkspace_idfeature-flagsflag_id">GET /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}</a>
 <a class="nav-section" href="#delete-projectsproject_idworkspacesworkspace_idfeature-flagsflag_id">DELETE /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}</a>
 <a class="nav-section" href="#put-projectsproject_idworkspacesworkspace_idfeature-flagsflag_id">PUT /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}</a></div>
-<a href="../api/list_feature_flag.html">ListFeatureFlag</a>
-<a href="../api/workspace.html">Workspace</a></details>
+<a href="../api/list_feature_flag.html">ListFeatureFlag</a></details>
 <details><summary>Guides</summary><a href="../guides/authentication.html">Authentication</a>
 <a href="../guides/first-call.html">Make your first API call</a>
 <a href="../guides/errors.html">Handle errors</a>
@@ -24,14 +23,14 @@
 <a href="../sdks/ts.html">TypeScript</a></details>
 <details><summary>Tools</summary><a href="../tools/go-cli.html">Go CLI</a>
 <a href="../tools/go-mcp.html">Go MCP server</a></details>
-<details><summary>Features</summary><a href="../features/debug.html">Request/response capture ring buffer for debugging</a>
-<a href="../features/idempotency.html">Idempotency keys for safe retries of mutating operations</a>
-<a href="../features/metrics.html">Statistics capture: per-operation counters and latency</a>
-<a href="../features/paging.html">Pagination signals for list operations</a>
-<a href="../features/ratelimit.html">Client-side rate limiting via a token bucket</a>
-<a href="../features/retry.html">Automatic retry of transient failures with exponential backoff</a>
-<a href="../features/test.html">In-memory mock transport for testing without a live server</a>
-<a href="../features/timeout.html">Per-request timeout with transport abort</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="featureflag">FeatureFlag</h1>
+<details><summary>Features</summary><a href="../features/debug.html">Debug capture</a>
+<a href="../features/idempotency.html">Idempotency</a>
+<a href="../features/metrics.html">Metrics</a>
+<a href="../features/paging.html">Paging</a>
+<a href="../features/ratelimit.html">Rate limiting</a>
+<a href="../features/retry.html">Retry</a>
+<a href="../features/test.html">Test transport</a>
+<a href="../features/timeout.html">Timeout</a></details></nav><main id="content"><div class="page-context"><span class="section-dot" aria-hidden="true"></span>API</div><h1 id="featureflag">FeatureFlag</h1>
 <h2 id="operations">Operations</h2>
 <p>Every route this entity exposes. Each route links to its own reference on this page.</p>
 <table>
@@ -70,6 +69,66 @@
 </tr>
 </tbody>
 </table>
+<h2 id="examples">Examples</h2>
+<p>One example per SDK, generated from the API model. The argument names are the parameters and fields of this entity, and the values are placeholders. The examples are not compiled or executed.</p>
+<h3 id="golang">Golang</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/go.html#set-up-the-client">Golang setup</a>, then call the operations:</p>
+<pre><code class="language-go">feature_flag, err := client.FeatureFlag(nil).Load(map[string]any{&quot;id&quot;: &quot;example_id&quot;, &quot;project_id&quot;: 1, &quot;workspace_id&quot;: 1}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(feature_flag)
+created, err := client.FeatureFlag(nil).Create(map[string]any{&quot;project_id&quot;: 1, &quot;workspace_id&quot;: 1, &quot;context&quot;: &quot;example&quot;, &quot;key&quot;: &quot;example&quot;, &quot;name&quot;: &quot;example&quot;, &quot;ruleset&quot;: map[string]any{}, &quot;serving_method&quot;: &quot;example&quot;, &quot;tags&quot;: []any{}}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(created)
+updated, err := client.FeatureFlag(nil).Update(map[string]any{&quot;id&quot;: &quot;example_id&quot;, &quot;project_id&quot;: 1, &quot;workspace_id&quot;: 1}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(updated)
+removed, err := client.FeatureFlag(nil).Remove(map[string]any{&quot;id&quot;: &quot;example_id&quot;, &quot;project_id&quot;: 1, &quot;workspace_id&quot;: 1}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(removed)
+</code></pre>
+<h3 id="javascript">JavaScript</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/js.html#set-up-the-client">JavaScript setup</a>, then call the operations:</p>
+<pre><code class="language-js">const feature_flag = await client.FeatureFlag().load({ id: &quot;example_id&quot;, project_id: 1, workspace_id: 1 })
+const created = await client.FeatureFlag().create({ project_id: 1, workspace_id: 1, context: &quot;example&quot;, key: &quot;example&quot;, name: &quot;example&quot;, ruleset: {}, serving_method: &quot;example&quot;, tags: [] })
+const updated = await client.FeatureFlag().update({ id: &quot;example_id&quot;, project_id: 1, workspace_id: 1 })
+await client.FeatureFlag().remove({ id: &quot;example_id&quot;, project_id: 1, workspace_id: 1 })
+</code></pre>
+<h3 id="lua">Lua</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/lua.html#set-up-the-client">Lua setup</a>, then call the operations:</p>
+<pre><code class="language-lua">local feature_flag, err = client:FeatureFlag():load({ id = &quot;example_id&quot;, project_id = 1, workspace_id = 1 })
+local created, err = client:FeatureFlag():create({ project_id = 1, workspace_id = 1, context = &quot;example&quot;, key = &quot;example&quot;, name = &quot;example&quot;, ruleset = {}, serving_method = &quot;example&quot;, tags = {} })
+local updated, err = client:FeatureFlag():update({ id = &quot;example_id&quot;, project_id = 1, workspace_id = 1 })
+local removed, err = client:FeatureFlag():remove({ id = &quot;example_id&quot;, project_id = 1, workspace_id = 1 })
+</code></pre>
+<h3 id="php">PHP</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/php.html#set-up-the-client">PHP setup</a>, then call the operations:</p>
+<pre><code class="language-php">$feature_flag = $client-&gt;FeatureFlag()-&gt;load([&quot;id&quot; =&gt; &quot;example_id&quot;, &quot;project_id&quot; =&gt; 1, &quot;workspace_id&quot; =&gt; 1]);
+$created = $client-&gt;FeatureFlag()-&gt;create([&quot;project_id&quot; =&gt; 1, &quot;workspace_id&quot; =&gt; 1, &quot;context&quot; =&gt; &quot;example&quot;, &quot;key&quot; =&gt; &quot;example&quot;, &quot;name&quot; =&gt; &quot;example&quot;, &quot;ruleset&quot; =&gt; [], &quot;serving_method&quot; =&gt; &quot;example&quot;, &quot;tags&quot; =&gt; []]);
+$updated = $client-&gt;FeatureFlag()-&gt;update([&quot;id&quot; =&gt; &quot;example_id&quot;, &quot;project_id&quot; =&gt; 1, &quot;workspace_id&quot; =&gt; 1]);
+$client-&gt;FeatureFlag()-&gt;remove([&quot;id&quot; =&gt; &quot;example_id&quot;, &quot;project_id&quot; =&gt; 1, &quot;workspace_id&quot; =&gt; 1]);
+</code></pre>
+<h3 id="python">Python</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/py.html#set-up-the-client">Python setup</a>, then call the operations:</p>
+<pre><code class="language-py">feature_flag = client.FeatureFlag().load({&quot;id&quot;: &quot;example_id&quot;, &quot;project_id&quot;: 1, &quot;workspace_id&quot;: 1})
+created = client.FeatureFlag().create({ &quot;project_id&quot;: 1, &quot;workspace_id&quot;: 1, &quot;context&quot;: &quot;example&quot;, &quot;key&quot;: &quot;example&quot;, &quot;name&quot;: &quot;example&quot;, &quot;ruleset&quot;: {}, &quot;serving_method&quot;: &quot;example&quot;, &quot;tags&quot;: [] })
+updated = client.FeatureFlag().update({&quot;id&quot;: &quot;example_id&quot;, &quot;project_id&quot;: 1, &quot;workspace_id&quot;: 1})
+client.FeatureFlag().remove({&quot;id&quot;: &quot;example_id&quot;, &quot;project_id&quot;: 1, &quot;workspace_id&quot;: 1})
+</code></pre>
+<h3 id="typescript">TypeScript</h3>
+<p>Construct <code>client</code> as shown in the <a href="../sdks/ts.html#set-up-the-client">TypeScript setup</a>, then call the operations:</p>
+<pre><code class="language-ts">const feature_flag = await client.FeatureFlag().load({ id: &quot;example_id&quot;, project_id: 1, workspace_id: 1 })
+const created = await client.FeatureFlag().create({ project_id: 1, workspace_id: 1, context: &quot;example&quot;, key: &quot;example&quot;, name: &quot;example&quot;, ruleset: {}, serving_method: &quot;example&quot;, tags: [] })
+const updated = await client.FeatureFlag().update({ id: &quot;example_id&quot;, project_id: 1, workspace_id: 1 })
+await client.FeatureFlag().remove({ id: &quot;example_id&quot;, project_id: 1, workspace_id: 1 })
+</code></pre>
 <h2 id="fields">Fields</h2>
 <table>
 <thead>
@@ -85,91 +144,91 @@
 <td><code>context</code></td>
 <td><code>string</code></td>
 <td>Yes</td>
-<td></td>
+<td>Context</td>
 </tr>
 <tr>
 <td><code>data_group_id</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td></td>
+<td>Data Group Id</td>
 </tr>
 <tr>
 <td><code>description</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td></td>
+<td>Description</td>
 </tr>
 <tr>
 <td><code>experiment_id</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td></td>
+<td>Experiment Id</td>
 </tr>
 <tr>
 <td><code>hash_salt</code></td>
 <td><code>any</code></td>
 <td>No</td>
-<td></td>
+<td>Hash Salt</td>
 </tr>
 <tr>
 <td><code>id</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td></td>
+<td>Id</td>
 </tr>
 <tr>
 <td><code>is_experiment_active</code></td>
 <td><code>boolean</code></td>
 <td>No</td>
-<td></td>
+<td>Is Experiment Active</td>
 </tr>
 <tr>
 <td><code>key</code></td>
 <td><code>string</code></td>
 <td>Yes</td>
-<td></td>
+<td>Key</td>
 </tr>
 <tr>
 <td><code>name</code></td>
 <td><code>string</code></td>
 <td>Yes</td>
-<td></td>
+<td>Name</td>
 </tr>
 <tr>
 <td><code>reset_hash_salt</code></td>
 <td><code>any</code></td>
 <td>No</td>
-<td></td>
+<td>Reset Hash Salt</td>
 </tr>
 <tr>
 <td><code>ruleset</code></td>
 <td><code>object</code></td>
 <td>Yes</td>
-<td></td>
+<td>Ruleset</td>
 </tr>
 <tr>
 <td><code>serving_method</code></td>
 <td><code>string</code></td>
 <td>Yes</td>
-<td></td>
+<td>Serving Method</td>
 </tr>
 <tr>
 <td><code>status</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td></td>
+<td>Status</td>
 </tr>
 <tr>
 <td><code>tags</code></td>
 <td><code>array</code></td>
 <td>Yes</td>
-<td></td>
+<td>Tags</td>
 </tr>
 <tr>
 <td><code>workspace_id</code></td>
 <td><code>string</code></td>
 <td>No</td>
-<td></td>
+<td>Workspace Id</td>
 </tr>
 </tbody>
 </table>

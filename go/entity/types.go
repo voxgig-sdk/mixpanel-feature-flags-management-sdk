@@ -1,7 +1,7 @@
 // Typed models for the MixpanelFeatureFlagsManagement SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,21 +14,6 @@ import (
 
 // FeatureFlag is the typed data model for the feature_flag entity.
 type FeatureFlag struct {
-	Context string `json:"context"`
-	DataGroupId *string `json:"data_group_id,omitempty"`
-	Description *string `json:"description,omitempty"`
-	ExperimentId *string `json:"experiment_id,omitempty"`
-	HashSalt *any `json:"hash_salt,omitempty"`
-	Id *string `json:"id,omitempty"`
-	IsExperimentActive *bool `json:"is_experiment_active,omitempty"`
-	Key string `json:"key"`
-	Name string `json:"name"`
-	ResetHashSalt *any `json:"reset_hash_salt,omitempty"`
-	Ruleset map[string]any `json:"ruleset"`
-	ServingMethod string `json:"serving_method"`
-	Status *string `json:"status,omitempty"`
-	Tags []any `json:"tags"`
-	WorkspaceId *string `json:"workspace_id,omitempty"`
 }
 
 // FeatureFlagLoadMatch is the typed request payload for FeatureFlag.LoadTyped.
@@ -94,10 +79,6 @@ type ListFeatureFlagLoadMatch struct {
 	ProjectId int `json:"project_id"`
 	WorkspaceId int `json:"workspace_id"`
 	IncludeArchived *string `json:"include_archived,omitempty"`
-}
-
-// Workspace is the typed data model for the workspace entity.
-type Workspace struct {
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

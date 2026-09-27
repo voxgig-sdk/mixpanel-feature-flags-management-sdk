@@ -264,7 +264,6 @@ func (sdk *MixpanelFeatureFlagsManagementSDK) rawRequest(fetchargs map[string]an
 		if !noBody {
 			if jf := vs.GetProp(fm, "json"); jf != nil {
 				if f, ok := jf.(func() any); ok {
-					// f() returns nil on parse error in our fetcher.
 					jsonData = f()
 				}
 			}
@@ -281,17 +280,6 @@ func (sdk *MixpanelFeatureFlagsManagementSDK) rawRequest(fetchargs map[string]an
 	return map[string]any{"ok": false, "err": ctx.MakeError("direct_invalid", "invalid response type")}, nil
 }
 
-// Raw GraphQL access: the pressure valve that makes the generated surface's
-// deliberate omissions (per-call selection sets, typed filter builders,
-// batching, subscriptions) livable — the whole schema stays reachable.
-//
-// Thin wrapper over the same prepare/fetch path Direct uses, with the one
-// thing raw Direct cannot do for GraphQL: a GraphQL failure rides HTTP 200
-// as a top-level `errors` array, so status alone would report a failed query
-// as ok.
-//
-// NOTE: like Direct, this bypasses the feature pipeline — no retry,
-// ratelimit or paging features apply.
 func (sdk *MixpanelFeatureFlagsManagementSDK) Graphql(
 	query string, variables map[string]any, ctrl map[string]any,
 ) (map[string]any, error) {
@@ -351,14 +339,6 @@ func (sdk *MixpanelFeatureFlagsManagementSDK) FeatureFlag(data map[string]any) M
 // client.ListFeatureFlag(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *MixpanelFeatureFlagsManagementSDK) ListFeatureFlag(data map[string]any) MixpanelFeatureFlagsManagementEntity {
 	return NewListFeatureFlagEntityFunc(sdk, data)
-}
-
-
-// Workspace returns a Workspace entity bound to this client.
-// Idiomatic usage: client.Workspace(nil).List(nil, nil) or
-// client.Workspace(nil).Load(map[string]any{"id": ...}, nil).
-func (sdk *MixpanelFeatureFlagsManagementSDK) Workspace(data map[string]any) MixpanelFeatureFlagsManagementEntity {
-	return NewWorkspaceEntityFunc(sdk, data)
 }
 
 

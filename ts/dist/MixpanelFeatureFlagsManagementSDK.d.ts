@@ -1,6 +1,5 @@
 import { FeatureFlagEntity } from './entity/FeatureFlagEntity';
 import { ListFeatureFlagEntity } from './entity/ListFeatureFlagEntity';
-import { WorkspaceEntity } from './entity/WorkspaceEntity';
 export type * from './MixpanelFeatureFlagsManagementTypes';
 import { inspect } from 'node:util';
 import type { Context, Feature } from './types';
@@ -48,7 +47,6 @@ declare class MixpanelFeatureFlagsManagementSDK {
     graphql(query: string, variables?: any, ctrl?: any): Promise<any>;
     FeatureFlag(entopts?: Record<string, any>): FeatureFlagEntity;
     ListFeatureFlag(entopts?: Record<string, any>): ListFeatureFlagEntity;
-    Workspace(entopts?: Record<string, any>): WorkspaceEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): MixpanelFeatureFlagsManagementSDK;
     tester(testopts?: any, sdkopts?: any): MixpanelFeatureFlagsManagementSDK;
     toJSON(): {

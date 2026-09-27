@@ -68,5 +68,3 @@ export interface ListFeatureFlagLoadMatch {
     workspace_id: number;
     include_archived?: string;
 }
-export interface Workspace {
-}

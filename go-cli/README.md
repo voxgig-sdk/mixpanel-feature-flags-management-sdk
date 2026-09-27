@@ -117,7 +117,7 @@ make build-all   # linux/darwin/windows x amd64/arm64, under dist/<os>-<arch>/
 ### Discover the available entities
 
 `/help` in the REPL prints the full entity list, or see [Entities](#entities)
-below — this SDK exposes 3 entities.
+below — this SDK exposes 2 entities.
 
 ## Reference
 
@@ -171,9 +171,9 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 ### Entities
 
-The 3 entities this SDK exposes (any is valid as `<entity>`):
+The 2 entities this SDK exposes (any is valid as `<entity>`):
 
-feature_flag list_feature_flag workspace
+feature_flag list_feature_flag
 
 ## Explanation
 

@@ -10,17 +10,15 @@ This is an unofficial SDK for the Feature Flags Management public API, generated
 
 Learn more about Voxgig SDKs at [voxgig.com/sdk](https://voxgig.com/sdk/).
 
-Full documentation for this SDK: [https://voxgig-sdk.github.io/mixpanel-feature-flags-management-sdk/](https://voxgig-sdk.github.io/mixpanel-feature-flags-management-sdk/)
-
 > TypeScript, Python, PHP, Golang, Lua, JavaScript SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `debug`, `idempotency`, `metrics`, `paging`, `ratelimit`, `retry`, `test`, `timeout` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
 ## Entities, not endpoints
 
-This SDK exposes the API as a small set of **semantic entities** — FeatureFlag, ListFeatureFlag and Workspace — that you
+This SDK exposes the API as a small set of **semantic entities** — FeatureFlag and ListFeatureFlag — that you
 call directly, instead of assembling URL paths and query strings. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
 support (`load`, `create`, `update`, `remove`):
@@ -105,12 +103,12 @@ console.log(featureflag)
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/mixpanel-feature-flags-management` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/tags) |
-| Python | `voxgig-sdk-mixpanel-feature-flags-management` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/tags) |
-| PHP | `voxgig-sdk/mixpanel-feature-flags-management` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/tags) |
+| TypeScript | `@voxgig-sdk/mixpanel-feature-flags-management-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/tags) |
+| Python | `voxgig-sdk-mixpanel-feature-flags-management-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/tags) |
+| PHP | `voxgig-sdk/mixpanel-feature-flags-management-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/go` | `go get github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/go@latest` |
-| Lua | `voxgig-sdk-mixpanel-feature-flags-management` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/tags) |
-| JavaScript | `@voxgig-sdk/mixpanel-feature-flags-management-js` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/tags) |
+| Lua | `voxgig-sdk-mixpanel-feature-flags-management-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/tags) |
+| JavaScript | `@voxgig-sdk/mixpanel-feature-flags-management-sdk-js` | publish pending — [install from git tag](https://github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/go-cli` | `go install github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/go-cli/cmd/mixpanel-feature-flags-management@latest` |
 | Go MCP server | `github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/go-mcp` | `go get github.com/voxgig-sdk/mixpanel-feature-flags-management-sdk/go-mcp@latest` |
 
@@ -119,7 +117,7 @@ console.log(featureflag)
 ### TypeScript
 
 ```ts
-import { MixpanelFeatureFlagsManagementSDK } from '@voxgig-sdk/mixpanel-feature-flags-management'
+import { MixpanelFeatureFlagsManagementSDK } from '@voxgig-sdk/mixpanel-feature-flags-management-sdk'
 
 const client = new MixpanelFeatureFlagsManagementSDK({
   apikey: process.env.MIXPANEL_FEATURE_FLAGS_MANAGEMENT_APIKEY,
@@ -130,13 +128,8 @@ const client = new MixpanelFeatureFlagsManagementSDK({
   },
 })
 
-
-// Load a specific featureflag (returns a FeatureFlag)
-const featureflag = await client.FeatureFlag().load({
-  project_id: 1,
-  workspace_id: 1,
-  id: 'example_id',
-})
+// Load featureflag data (returns a FeatureFlag)
+const featureflag = await client.FeatureFlag().load()
 console.log(featureflag)
 ```
 
@@ -174,13 +167,12 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 
 ## Entities
 
-The API exposes 3 entities:
+The API exposes 2 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
 | **FeatureFlag** | The FeatureFlag entity (create, load, remove, update). | `/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}` |
 | **ListFeatureFlag** | The ListFeatureFlag entity (load). | `/projects/{project_id}/workspaces/{workspace_id}/feature-flags` |
-| **Workspace** | The Workspace entity. | `` |
 
 The operations available across these entities are **load**, **create**, **update**, **remove** — see each entity's
 own list above for exactly which it supports.
@@ -234,11 +226,8 @@ client := sdk.NewMixpanelFeatureFlagsManagementSDK(map[string]any{
     },
 })
 
-
-// Load a specific featureflag
-featureFlag, err := client.FeatureFlag(nil).Load(
-    map[string]any{"project_id": 1, "workspace_id": 1, "id": "example_id"}, nil,
-)
+// Load featureflag data
+featureFlag, err := client.FeatureFlag(nil).Load(map[string]any{"id": "example_id", "project_id": 1, "workspace_id": 1}, nil)
 if err != nil {
     panic(err)
 }
@@ -263,20 +252,12 @@ print(featureflag)
 ### JavaScript
 
 ```js
-const { MixpanelFeatureFlagsManagementSDK } = require('@voxgig-sdk/mixpanel-feature-flags-management-js')
+const { MixpanelFeatureFlagsManagementSDK } = require('@voxgig-sdk/mixpanel-feature-flags-management-sdk-js')
 
 const client = new MixpanelFeatureFlagsManagementSDK({
   apikey: process.env.MIXPANEL_FEATURE_FLAGS_MANAGEMENT_APIKEY,
 })
 
-
-// Load a specific featureflag (returns the entity)
-const featureflag = await client.FeatureFlag().load({
-  project_id: 1,
-  workspace_id: 1,
-  id: 'example_id',
-})
-console.log(featureflag)
 ```
 
 ## Direct and prepare
@@ -382,14 +363,14 @@ forking the SDK.
 
 | Feature | Purpose |
 | --- | --- |
-| **DebugFeature** | Request/response capture ring buffer for debugging |
-| **IdempotencyFeature** | Idempotency keys for safe retries of mutating operations |
-| **MetricsFeature** | Statistics capture: per-operation counters and latency |
-| **PagingFeature** | Pagination signals for list operations |
-| **RatelimitFeature** | Client-side rate limiting via a token bucket |
-| **RetryFeature** | Automatic retry of transient failures with exponential backoff |
-| **TestFeature** | In-memory mock transport for testing without a live server |
-| **TimeoutFeature** | Per-request timeout with transport abort |
+| **DebugFeature** | Debug capture |
+| **IdempotencyFeature** | Idempotency |
+| **MetricsFeature** | Metrics |
+| **PagingFeature** | Paging |
+| **RatelimitFeature** | Rate limiting |
+| **RetryFeature** | Retry |
+| **TestFeature** | Test transport |
+| **TimeoutFeature** | Timeout |
 
 Pass custom features via the `extend` option at construction time.
 

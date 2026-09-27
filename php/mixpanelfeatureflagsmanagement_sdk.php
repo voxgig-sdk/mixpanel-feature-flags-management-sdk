@@ -377,24 +377,6 @@ class MixpanelFeatureFlagsManagementSDK
     }
 
 
-    private $_workspace = null;
-
-    // Canonical facade: $client->Workspace()->list() / ->load(["id" => ...]).
-    // PHP method names are case-insensitive, so lowercase $client->workspace()
-    // resolves here too.
-    public function Workspace($data = null)
-    {
-        require_once __DIR__ . '/entity/workspace_entity.php';
-        if ($data === null) {
-            if ($this->_workspace === null) {
-                $this->_workspace = new WorkspaceEntity($this, null);
-            }
-            return $this->_workspace;
-        }
-        return new WorkspaceEntity($this, $data);
-    }
-
-
 
     public static function test(?array $testopts = null, ?array $sdkopts = null): self
     {

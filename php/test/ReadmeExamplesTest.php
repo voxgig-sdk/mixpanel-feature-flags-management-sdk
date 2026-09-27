@@ -42,7 +42,6 @@ class ReadmeExamplesTest extends TestCase
     private const ENTITIES = [
         "FeatureFlag" => "feature_flag",
         "ListFeatureFlag" => "list_feature_flag",
-        "Workspace" => "workspace",
     ];
 
     // Documented SDK method names — used only to recognise the NARROW

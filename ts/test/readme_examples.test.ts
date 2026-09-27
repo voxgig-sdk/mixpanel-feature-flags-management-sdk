@@ -37,7 +37,7 @@ const SDK_NAME = 'MixpanelFeatureFlagsManagementSDK'
 
 // A fixture for every entity, so list()/load() resolve offline with no
 // network. Snippet client construction is rewritten to seed this.
-const TEST_SEED = {"entity":{"feature_flag":{"test01":{"id":"test01"}},"list_feature_flag":{"test01":{"id":"test01"}},"workspace":{"test01":{"id":"test01"}}}}
+const TEST_SEED = {"entity":{"feature_flag":{"test01":{"id":"test01"}},"list_feature_flag":{"test01":{"id":"test01"}}}}
 const SEED_ARG = JSON.stringify(TEST_SEED)
 const SEEDED_CTOR = SDK_NAME + '.test(' + SEED_ARG + ')'
 

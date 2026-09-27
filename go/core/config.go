@@ -161,7 +161,6 @@ func MakeConfig() map[string]any {
 			"entity": map[string]any{
 				"feature_flag": map[string]any{},
 				"list_feature_flag": map[string]any{},
-				"workspace": map[string]any{},
 			},
 		},
 		"entity": map[string]any{
@@ -169,78 +168,83 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "context",
-						"req": true,
+						"title": "Context",
 						"type": "`$STRING`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "data_group_id",
+						"title": "Data Group Id",
 						"type": "`$STRING`",
-						"union": map[string]any{
-							"branches": 2,
-							"count": 1,
-							"depth": 0,
-						},
 					},
 					map[string]any{
 						"name": "description",
+						"title": "Description",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "experiment_id",
+						"title": "Experiment Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "hash_salt",
+						"title": "Hash Salt",
 						"type": "`$ANY`",
 					},
 					map[string]any{
 						"name": "id",
+						"title": "Id",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "is_experiment_active",
+						"title": "Is Experiment Active",
 						"type": "`$BOOLEAN`",
 					},
 					map[string]any{
 						"name": "key",
-						"req": true,
+						"title": "Key",
 						"type": "`$STRING`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "name",
-						"req": true,
+						"title": "Name",
 						"type": "`$STRING`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "reset_hash_salt",
+						"title": "Reset Hash Salt",
 						"type": "`$ANY`",
 					},
 					map[string]any{
 						"name": "ruleset",
-						"req": true,
+						"title": "Ruleset",
 						"type": "`$OBJECT`",
-						"union": map[string]any{
-							"branches": 3,
-							"count": 1,
-							"depth": 5,
-						},
+						"req": true,
 					},
 					map[string]any{
 						"name": "serving_method",
-						"req": true,
+						"title": "Serving Method",
 						"type": "`$STRING`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "status",
+						"title": "Status",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "tags",
-						"req": true,
+						"title": "Tags",
 						"type": "`$ARRAY`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "workspace_id",
+						"title": "Workspace Id",
 						"type": "`$STRING`",
 					},
 				},
@@ -255,24 +259,6 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "workspace_id",
-											"orig": "workspace_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/projects/{project_id}/workspaces/{workspace_id}/feature-flags",
@@ -293,12 +279,14 @@ func MakeConfig() map[string]any {
 										"lit": "feature-flags",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"project_id",
-										"workspace_id",
-									},
+								"parts": []any{
+									"projects",
+									"{project_id}",
+									"workspaces",
+									"{workspace_id}",
+									"feature-flags",
 								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": map[string]any{
 										"context": "`reqdata.context`",
@@ -318,12 +306,29 @@ func MakeConfig() map[string]any {
 									},
 									"res": "`body`",
 								},
-								"parts": []any{
-									"projects",
-									"{project_id}",
-									"workspaces",
-									"{workspace_id}",
-									"feature-flags",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "workspace_id",
+											"orig": "workspace_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"project_id",
+										"workspace_id",
+									},
 								},
 							},
 						},
@@ -333,39 +338,9 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "flag_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "workspace_id",
-											"orig": "workspace_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"flag_id": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "projects",
@@ -386,17 +361,6 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
-										"project_id",
-										"workspace_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"projects",
 									"{project_id}",
@@ -404,6 +368,47 @@ func MakeConfig() map[string]any {
 									"{workspace_id}",
 									"feature-flags",
 									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"flag_id": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "flag_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "workspace_id",
+											"orig": "workspace_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+										"project_id",
+										"workspace_id",
+									},
 								},
 							},
 						},
@@ -413,39 +418,9 @@ func MakeConfig() map[string]any {
 						"name": "remove",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "flag_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "workspace_id",
-											"orig": "workspace_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"flag_id": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "projects",
@@ -465,17 +440,6 @@ func MakeConfig() map[string]any {
 									map[string]any{
 										"var": "id",
 									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
-										"project_id",
-										"workspace_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
 								},
 								"parts": []any{
 									"projects",
@@ -485,6 +449,47 @@ func MakeConfig() map[string]any {
 									"feature-flags",
 									"{id}",
 								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"flag_id": "id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "flag_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "workspace_id",
+											"orig": "workspace_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+										"project_id",
+										"workspace_id",
+									},
+								},
 							},
 						},
 					},
@@ -493,39 +498,9 @@ func MakeConfig() map[string]any {
 						"name": "update",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "id",
-											"orig": "flag_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "workspace_id",
-											"orig": "workspace_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "PUT",
 								"orig": "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}",
-								"rename": map[string]any{
-									"param": map[string]any{
-										"flag_id": "id",
-									},
-								},
 								"segments": []any{
 									map[string]any{
 										"lit": "projects",
@@ -546,11 +521,17 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
-										"project_id",
-										"workspace_id",
+								"parts": []any{
+									"projects",
+									"{project_id}",
+									"workspaces",
+									"{workspace_id}",
+									"feature-flags",
+									"{id}",
+								},
+								"rename": map[string]any{
+									"param": map[string]any{
+										"flag_id": "id",
 									},
 								},
 								"transform": map[string]any{
@@ -572,25 +553,44 @@ func MakeConfig() map[string]any {
 									},
 									"res": "`body`",
 								},
-								"parts": []any{
-									"projects",
-									"{project_id}",
-									"workspaces",
-									"{workspace_id}",
-									"feature-flags",
-									"{id}",
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "flag_id",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "workspace_id",
+											"orig": "workspace_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+										"project_id",
+										"workspace_id",
+									},
 								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"project",
-							"workspace",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"list_feature_flag": map[string]any{
@@ -602,32 +602,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "project_id",
-											"orig": "project_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-										map[string]any{
-											"kind": "param",
-											"name": "workspace_id",
-											"orig": "workspace_id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-									"query": []any{
-										map[string]any{
-											"kind": "query",
-											"name": "include_archived",
-											"orig": "include_archived",
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/projects/{project_id}/workspaces/{workspace_id}/feature-flags",
@@ -648,17 +622,6 @@ func MakeConfig() map[string]any {
 										"lit": "feature-flags",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"include_archived",
-										"project_id",
-										"workspace_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"projects",
 									"{project_id}",
@@ -666,29 +629,50 @@ func MakeConfig() map[string]any {
 									"{workspace_id}",
 									"feature-flags",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "project_id",
+											"orig": "project_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+										map[string]any{
+											"name": "workspace_id",
+											"orig": "workspace_id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+										},
+									},
+									"query": []any{
+										map[string]any{
+											"name": "include_archived",
+											"orig": "include_archived",
+											"type": "`$STRING`",
+											"kind": "query",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"include_archived",
+										"project_id",
+										"workspace_id",
+									},
+								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"project",
-							"workspace",
-						},
-					},
-				},
-			},
-			"workspace": map[string]any{
-				"fields": []any{},
-				"name": "workspace",
-				"op": map[string]any{},
-				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"project",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 		},

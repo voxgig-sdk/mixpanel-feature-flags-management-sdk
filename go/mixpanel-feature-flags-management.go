@@ -59,9 +59,6 @@ func init() {
 	core.NewListFeatureFlagEntityFunc = func(client *core.MixpanelFeatureFlagsManagementSDK, entopts map[string]any) core.MixpanelFeatureFlagsManagementEntity {
 		return entity.NewListFeatureFlagEntity(client, entopts)
 	}
-	core.NewWorkspaceEntityFunc = func(client *core.MixpanelFeatureFlagsManagementSDK, entopts map[string]any) core.MixpanelFeatureFlagsManagementEntity {
-		return entity.NewWorkspaceEntity(client, entopts)
-	}
 }
 
 // Constructor re-exports.

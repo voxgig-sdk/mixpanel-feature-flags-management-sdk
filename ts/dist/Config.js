@@ -19,19 +19,12 @@ const FEATURE_CLASS = {
     test: TestFeature_1.TestFeature,
     timeout: TimeoutFeature_1.TimeoutFeature,
 };
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS = {};
 exports.FEATURE_PLUGINS = FEATURE_PLUGINS;
 class Config {
     makeFeature(fn) {
         const fc = FEATURE_CLASS[fn];
         const fi = new fc();
-        // TODO: errors etc
         return fi;
     }
     // False for a feature added at runtime via options.extend (station's
@@ -193,7 +186,6 @@ class Config {
         entity: {
             feature_flag: {},
             list_feature_flag: {},
-            workspace: {},
         }
     };
     entity = {
@@ -201,78 +193,83 @@ class Config {
             "fields": [
                 {
                     "name": "context",
-                    "req": true,
-                    "type": "`$STRING`"
+                    "title": "Context",
+                    "type": "`$STRING`",
+                    "req": true
                 },
                 {
                     "name": "data_group_id",
-                    "type": "`$STRING`",
-                    "union": {
-                        "branches": 2,
-                        "count": 1,
-                        "depth": 0
-                    }
+                    "title": "Data Group Id",
+                    "type": "`$STRING`"
                 },
                 {
                     "name": "description",
+                    "title": "Description",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "experiment_id",
+                    "title": "Experiment Id",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "hash_salt",
+                    "title": "Hash Salt",
                     "type": "`$ANY`"
                 },
                 {
                     "name": "id",
+                    "title": "Id",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "is_experiment_active",
+                    "title": "Is Experiment Active",
                     "type": "`$BOOLEAN`"
                 },
                 {
                     "name": "key",
-                    "req": true,
-                    "type": "`$STRING`"
+                    "title": "Key",
+                    "type": "`$STRING`",
+                    "req": true
                 },
                 {
                     "name": "name",
-                    "req": true,
-                    "type": "`$STRING`"
+                    "title": "Name",
+                    "type": "`$STRING`",
+                    "req": true
                 },
                 {
                     "name": "reset_hash_salt",
+                    "title": "Reset Hash Salt",
                     "type": "`$ANY`"
                 },
                 {
                     "name": "ruleset",
-                    "req": true,
+                    "title": "Ruleset",
                     "type": "`$OBJECT`",
-                    "union": {
-                        "branches": 3,
-                        "count": 1,
-                        "depth": 5
-                    }
+                    "req": true
                 },
                 {
                     "name": "serving_method",
-                    "req": true,
-                    "type": "`$STRING`"
+                    "title": "Serving Method",
+                    "type": "`$STRING`",
+                    "req": true
                 },
                 {
                     "name": "status",
+                    "title": "Status",
                     "type": "`$STRING`"
                 },
                 {
                     "name": "tags",
-                    "req": true,
-                    "type": "`$ARRAY`"
+                    "title": "Tags",
+                    "type": "`$ARRAY`",
+                    "req": true
                 },
                 {
                     "name": "workspace_id",
+                    "title": "Workspace Id",
                     "type": "`$STRING`"
                 }
             ],
@@ -287,24 +284,6 @@ class Config {
                     "name": "create",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "project_id",
-                                        "orig": "project_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "param",
-                                        "name": "workspace_id",
-                                        "orig": "workspace_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "POST",
                             "orig": "/projects/{project_id}/workspaces/{workspace_id}/feature-flags",
@@ -325,12 +304,14 @@ class Config {
                                     "lit": "feature-flags"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "project_id",
-                                    "workspace_id"
-                                ]
-                            },
+                            "parts": [
+                                "projects",
+                                "{project_id}",
+                                "workspaces",
+                                "{workspace_id}",
+                                "feature-flags"
+                            ],
+                            "rename": {},
                             "transform": {
                                 "req": {
                                     "context": "`reqdata.context`",
@@ -350,13 +331,30 @@ class Config {
                                 },
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "projects",
-                                "{project_id}",
-                                "workspaces",
-                                "{workspace_id}",
-                                "feature-flags"
-                            ]
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "project_id",
+                                        "orig": "project_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "workspace_id",
+                                        "orig": "workspace_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "project_id",
+                                    "workspace_id"
+                                ]
+                            }
                         }
                     ]
                 },
@@ -365,39 +363,9 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "id",
-                                        "orig": "flag_id",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "param",
-                                        "name": "project_id",
-                                        "orig": "project_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "param",
-                                        "name": "workspace_id",
-                                        "orig": "workspace_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}",
-                            "rename": {
-                                "param": {
-                                    "flag_id": "id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "projects"
@@ -418,17 +386,6 @@ class Config {
                                     "var": "id"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "id",
-                                    "project_id",
-                                    "workspace_id"
-                                ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
                             "parts": [
                                 "projects",
                                 "{project_id}",
@@ -436,7 +393,48 @@ class Config {
                                 "{workspace_id}",
                                 "feature-flags",
                                 "{id}"
-                            ]
+                            ],
+                            "rename": {
+                                "param": {
+                                    "flag_id": "id"
+                                }
+                            },
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "id",
+                                        "orig": "flag_id",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "project_id",
+                                        "orig": "project_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "workspace_id",
+                                        "orig": "workspace_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "id",
+                                    "project_id",
+                                    "workspace_id"
+                                ]
+                            }
                         }
                     ]
                 },
@@ -445,39 +443,9 @@ class Config {
                     "name": "remove",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "id",
-                                        "orig": "flag_id",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "param",
-                                        "name": "project_id",
-                                        "orig": "project_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "param",
-                                        "name": "workspace_id",
-                                        "orig": "workspace_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "DELETE",
                             "orig": "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}",
-                            "rename": {
-                                "param": {
-                                    "flag_id": "id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "projects"
@@ -498,17 +466,6 @@ class Config {
                                     "var": "id"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "id",
-                                    "project_id",
-                                    "workspace_id"
-                                ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
                             "parts": [
                                 "projects",
                                 "{project_id}",
@@ -516,7 +473,48 @@ class Config {
                                 "{workspace_id}",
                                 "feature-flags",
                                 "{id}"
-                            ]
+                            ],
+                            "rename": {
+                                "param": {
+                                    "flag_id": "id"
+                                }
+                            },
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "id",
+                                        "orig": "flag_id",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "project_id",
+                                        "orig": "project_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "workspace_id",
+                                        "orig": "workspace_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "id",
+                                    "project_id",
+                                    "workspace_id"
+                                ]
+                            }
                         }
                     ]
                 },
@@ -525,39 +523,9 @@ class Config {
                     "name": "update",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "id",
-                                        "orig": "flag_id",
-                                        "reqd": true,
-                                        "type": "`$STRING`"
-                                    },
-                                    {
-                                        "kind": "param",
-                                        "name": "project_id",
-                                        "orig": "project_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "param",
-                                        "name": "workspace_id",
-                                        "orig": "workspace_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "PUT",
                             "orig": "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}",
-                            "rename": {
-                                "param": {
-                                    "flag_id": "id"
-                                }
-                            },
                             "segments": [
                                 {
                                     "lit": "projects"
@@ -578,12 +546,18 @@ class Config {
                                     "var": "id"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "id",
-                                    "project_id",
-                                    "workspace_id"
-                                ]
+                            "parts": [
+                                "projects",
+                                "{project_id}",
+                                "workspaces",
+                                "{workspace_id}",
+                                "feature-flags",
+                                "{id}"
+                            ],
+                            "rename": {
+                                "param": {
+                                    "flag_id": "id"
+                                }
                             },
                             "transform": {
                                 "req": {
@@ -604,25 +578,44 @@ class Config {
                                 },
                                 "res": "`body`"
                             },
-                            "parts": [
-                                "projects",
-                                "{project_id}",
-                                "workspaces",
-                                "{workspace_id}",
-                                "feature-flags",
-                                "{id}"
-                            ]
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "id",
+                                        "orig": "flag_id",
+                                        "type": "`$STRING`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "project_id",
+                                        "orig": "project_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "workspace_id",
+                                        "orig": "workspace_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "id",
+                                    "project_id",
+                                    "workspace_id"
+                                ]
+                            }
                         }
                     ]
                 }
             },
             "relations": {
-                "ancestors": [
-                    [
-                        "project",
-                        "workspace"
-                    ]
-                ]
+                "ancestors": []
             }
         },
         "list_feature_flag": {
@@ -634,32 +627,6 @@ class Config {
                     "name": "load",
                     "points": [
                         {
-                            "args": {
-                                "params": [
-                                    {
-                                        "kind": "param",
-                                        "name": "project_id",
-                                        "orig": "project_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    },
-                                    {
-                                        "kind": "param",
-                                        "name": "workspace_id",
-                                        "orig": "workspace_id",
-                                        "reqd": true,
-                                        "type": "`$INTEGER`"
-                                    }
-                                ],
-                                "query": [
-                                    {
-                                        "kind": "query",
-                                        "name": "include_archived",
-                                        "orig": "include_archived",
-                                        "type": "`$STRING`"
-                                    }
-                                ]
-                            },
                             "kind": "http",
                             "method": "GET",
                             "orig": "/projects/{project_id}/workspaces/{workspace_id}/feature-flags",
@@ -680,47 +647,57 @@ class Config {
                                     "lit": "feature-flags"
                                 }
                             ],
-                            "select": {
-                                "exist": [
-                                    "include_archived",
-                                    "project_id",
-                                    "workspace_id"
-                                ]
-                            },
-                            "transform": {
-                                "req": "`reqdata`",
-                                "res": "`body`"
-                            },
                             "parts": [
                                 "projects",
                                 "{project_id}",
                                 "workspaces",
                                 "{workspace_id}",
                                 "feature-flags"
-                            ]
+                            ],
+                            "rename": {},
+                            "transform": {
+                                "req": "`reqdata`",
+                                "res": "`body`"
+                            },
+                            "args": {
+                                "params": [
+                                    {
+                                        "name": "project_id",
+                                        "orig": "project_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    },
+                                    {
+                                        "name": "workspace_id",
+                                        "orig": "workspace_id",
+                                        "type": "`$INTEGER`",
+                                        "kind": "param",
+                                        "reqd": true
+                                    }
+                                ],
+                                "query": [
+                                    {
+                                        "name": "include_archived",
+                                        "orig": "include_archived",
+                                        "type": "`$STRING`",
+                                        "kind": "query"
+                                    }
+                                ]
+                            },
+                            "select": {
+                                "exist": [
+                                    "include_archived",
+                                    "project_id",
+                                    "workspace_id"
+                                ]
+                            }
                         }
                     ]
                 }
             },
             "relations": {
-                "ancestors": [
-                    [
-                        "project",
-                        "workspace"
-                    ]
-                ]
-            }
-        },
-        "workspace": {
-            "fields": [],
-            "name": "workspace",
-            "op": {},
-            "relations": {
-                "ancestors": [
-                    [
-                        "project"
-                    ]
-                ]
+                "ancestors": []
             }
         }
     };

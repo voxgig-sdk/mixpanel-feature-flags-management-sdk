@@ -1,0 +1,435 @@
+# Entity: feature_flag
+
+main: kit: entity: feature_flag: {
+
+  alias: field: {}
+
+  fields: {
+    context: {
+      h: "Context"
+      n: "context"
+      r: true
+      t: "`$STRING`"
+    }
+    data_group_id: {
+      h: "Data Group Id"
+      n: "data_group_id"
+      r: false
+      t: "`$STRING`"
+      union: {
+        branches: 2
+        count: 1
+        depth: 0
+      }
+    }
+    description: {
+      h: "Description"
+      n: "description"
+      r: false
+      t: "`$STRING`"
+    }
+    experiment_id: {
+      h: "Experiment Id"
+      n: "experiment_id"
+      r: false
+      t: "`$STRING`"
+    }
+    hash_salt: {
+      h: "Hash Salt"
+      n: "hash_salt"
+      r: false
+      t: "`$ANY`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+    is_experiment_active: {
+      h: "Is Experiment Active"
+      n: "is_experiment_active"
+      r: false
+      t: "`$BOOLEAN`"
+    }
+    key: {
+      h: "Key"
+      n: "key"
+      r: true
+      t: "`$STRING`"
+    }
+    name: {
+      h: "Name"
+      n: "name"
+      r: true
+      t: "`$STRING`"
+    }
+    reset_hash_salt: {
+      h: "Reset Hash Salt"
+      n: "reset_hash_salt"
+      r: false
+      t: "`$ANY`"
+    }
+    ruleset: {
+      h: "Ruleset"
+      n: "ruleset"
+      r: true
+      t: "`$OBJECT`"
+      union: {
+        branches: 3
+        count: 1
+        depth: 5
+      }
+    }
+    serving_method: {
+      h: "Serving Method"
+      n: "serving_method"
+      r: true
+      t: "`$STRING`"
+    }
+    status: {
+      h: "Status"
+      n: "status"
+      r: false
+      t: "`$STRING`"
+    }
+    tags: {
+      h: "Tags"
+      n: "tags"
+      r: true
+      t: "`$ARRAY`"
+    }
+    workspace_id: {
+      h: "Workspace Id"
+      n: "workspace_id"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "feature_flag"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          co: {
+            id: "POST /projects/{project_id}/workspaces/{workspace_id}/feature-flags"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "project_id"
+                or: "project_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "workspace_id"
+                or: "workspace_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "POST"
+          o: "/projects/{project_id}/workspaces/{workspace_id}/feature-flags"
+          q: {
+            exist: [
+              "project_id"
+              "workspace_id"
+            ]
+          }
+          s: [
+            {
+              lit: "projects"
+            }
+            {
+              var: "project_id"
+            }
+            {
+              lit: "workspaces"
+            }
+            {
+              var: "workspace_id"
+            }
+            {
+              lit: "feature-flags"
+            }
+          ]
+          t: {
+            req: {
+              context: "`reqdata.context`"
+              data_group_id: "`reqdata.data_group_id`"
+              description: "`reqdata.description`"
+              experiment_id: "`reqdata.experiment_id`"
+              hash_salt: "`reqdata.hash_salt`"
+              is_experiment_active: "`reqdata.is_experiment_active`"
+              key: "`reqdata.key`"
+              name: "`reqdata.name`"
+              reset_hash_salt: "`reqdata.reset_hash_salt`"
+              ruleset: "`reqdata.ruleset`"
+              serving_method: "`reqdata.serving_method`"
+              status: "`reqdata.status`"
+              tags: "`reqdata.tag`"
+              workspace_id: "`reqdata.workspace_id`"
+            }
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "flag_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "project_id"
+                or: "project_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "workspace_id"
+                or: "workspace_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+          q: {
+            exist: [
+              "id"
+              "project_id"
+              "workspace_id"
+            ]
+          }
+          r: {
+            param: {
+              flag_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "projects"
+            }
+            {
+              var: "project_id"
+            }
+            {
+              lit: "workspaces"
+            }
+            {
+              var: "workspace_id"
+            }
+            {
+              lit: "feature-flags"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          co: {
+            id: "DELETE /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "flag_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "project_id"
+                or: "project_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "workspace_id"
+                or: "workspace_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "DELETE"
+          o: "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+          q: {
+            exist: [
+              "id"
+              "project_id"
+              "workspace_id"
+            ]
+          }
+          r: {
+            param: {
+              flag_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "projects"
+            }
+            {
+              var: "project_id"
+            }
+            {
+              lit: "workspaces"
+            }
+            {
+              var: "workspace_id"
+            }
+            {
+              lit: "feature-flags"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          co: {
+            id: "PUT /projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                k: "param"
+                n: "id"
+                or: "flag_id"
+                r: true
+                t: "`$STRING`"
+              }
+              {
+                k: "param"
+                n: "project_id"
+                or: "project_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+              {
+                k: "param"
+                n: "workspace_id"
+                or: "workspace_id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "PUT"
+          o: "/projects/{project_id}/workspaces/{workspace_id}/feature-flags/{flag_id}"
+          q: {
+            exist: [
+              "id"
+              "project_id"
+              "workspace_id"
+            ]
+          }
+          r: {
+            param: {
+              flag_id: "id"
+            }
+          }
+          s: [
+            {
+              lit: "projects"
+            }
+            {
+              var: "project_id"
+            }
+            {
+              lit: "workspaces"
+            }
+            {
+              var: "workspace_id"
+            }
+            {
+              lit: "feature-flags"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: {
+              context: "`reqdata.context`"
+              data_group_id: "`reqdata.data_group_id`"
+              description: "`reqdata.description`"
+              experiment_id: "`reqdata.experiment_id`"
+              hash_salt: "`reqdata.hash_salt`"
+              is_experiment_active: "`reqdata.is_experiment_active`"
+              key: "`reqdata.key`"
+              name: "`reqdata.name`"
+              reset_hash_salt: "`reqdata.reset_hash_salt`"
+              ruleset: "`reqdata.ruleset`"
+              serving_method: "`reqdata.serving_method`"
+              status: "`reqdata.status`"
+              tags: "`reqdata.tag`"
+              workspace_id: "`reqdata.workspace_id`"
+            }
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

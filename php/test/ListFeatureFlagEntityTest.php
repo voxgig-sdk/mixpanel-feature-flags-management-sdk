@@ -70,7 +70,7 @@ function list_feature_flag_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["list_feature_flag01", "list_feature_flag02", "list_feature_flag03", "project01", "project02", "project03", "workspace01", "workspace02", "workspace03"] as $k) {
+    foreach (["list_feature_flag01", "list_feature_flag02", "list_feature_flag03", "project01"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

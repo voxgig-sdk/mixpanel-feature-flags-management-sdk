@@ -78,7 +78,6 @@ _CLIENT_VARS = ("client", "sdk")
 _ENTITIES = {
     "FeatureFlag": "feature_flag",
     "ListFeatureFlag": "list_feature_flag",
-    "Workspace": "workspace",
 }
 
 # The three documents held to the gate, tagged by human label.

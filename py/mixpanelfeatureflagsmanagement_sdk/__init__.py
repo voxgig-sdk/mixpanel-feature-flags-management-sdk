@@ -319,12 +319,6 @@ class MixpanelFeatureFlagsManagementSDK:
         return ListFeatureFlagEntity(self, data)
 
 
-    def Workspace(self, data=None) -> "WorkspaceEntity":
-        """Entity factory: client.Workspace().list() / client.Workspace().load({"id": ...})."""
-        from mixpanelfeatureflagsmanagement_sdk.entity.workspace_entity import WorkspaceEntity
-        return WorkspaceEntity(self, data)
-
-
 
     @classmethod
     def test(cls, testopts=None, sdkopts=None) -> "MixpanelFeatureFlagsManagementSDK":
@@ -354,4 +348,3 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from mixpanelfeatureflagsmanagement_sdk.entity.feature_flag_entity import FeatureFlagEntity
     from mixpanelfeatureflagsmanagement_sdk.entity.list_feature_flag_entity import ListFeatureFlagEntity
-    from mixpanelfeatureflagsmanagement_sdk.entity.workspace_entity import WorkspaceEntity
